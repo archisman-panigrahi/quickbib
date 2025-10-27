@@ -4,8 +4,7 @@ import sys
 import gi
 gi.require_version('Gtk', '4.0')
 from gi.repository import Gtk, GLib
-import pyperclip
-from doi2bib.crossref import get_bib_from_doi
+from helpers import get_bibtex_for_doi, copy_to_clipboard
 
 class Doi2BibWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
@@ -69,31 +68,33 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
         GLib.idle_add(self._fetch_bibtex_async, doi)
 
     def _fetch_bibtex_async(self, doi):
-        try:
-            found, bibtex = get_bib_from_doi(doi)
-            if found:
-                self.textbuffer.set_text(bibtex)
-                self.status.set_text("✅ Fetched successfully.")
-            else:
-                self.textbuffer.set_text("")
-                self.status.set_text("Error: DOI not found or CrossRef request failed.")
-        except Exception as e:
+        found, bibtex, error = get_bibtex_for_doi(doi)
+        if found:
+            self.textbuffer.set_text(bibtex)
+            self.status.set_text("✅ Fetched successfully.")
+        else:
             self.textbuffer.set_text("")
-            self.status.set_text(f"Error: {e}")
+            if error:
+                self.status.set_text(f"Error: {error}")
+            else:
+                self.status.set_text("Error: DOI not found or CrossRef request failed.")
 
     def copy_to_clipboard(self, _btn):
         start, end = self.textbuffer.get_bounds()
         text = self.textbuffer.get_text(start, end, False)
         if text.strip():
-            pyperclip.copy(text)
-            self.status.set_text("Copied to clipboard!")
+            ok = copy_to_clipboard(text)
+            if ok:
+                self.status.set_text("Copied to clipboard!")
+            else:
+                self.status.set_text("Failed to copy to clipboard.")
         else:
             self.status.set_text("Nothing to copy.")
 
 
 class Doi2BibApp(Gtk.Application):
     def __init__(self):
-        super().__init__(application_id="org.example.doi2bib")
+        super().__init__(application_id="io.github.archisman-panigrahi.quickbib")
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app):
