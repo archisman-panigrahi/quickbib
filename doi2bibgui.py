@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
-"""
-GTK4 GUI for doi2bib — fetch BibTeX for a given DOI.
-
-Dependencies:
-    pip install doi2bib pyperclip
-    sudo apt install python3-gi gir1.2-gtk-4.0
-"""
 
 import sys
-from gi.repository import Gtk, Gdk, GLib
+import gi
+gi.require_version('Gtk', '4.0')
+from gi.repository import Gtk, GLib
 import pyperclip
-from doi2bib import Doi2Bib
+from doi2bib.crossref import get_bib_from_doi
 
 class Doi2BibWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
@@ -53,6 +48,8 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
         box.append(scroller)
 
         self.textview = Gtk.TextView()
+        # Wrap long lines so output never extends off the visible area
+        self.textview.set_wrap_mode(Gtk.WrapMode.WORD)
         self.textview.set_editable(False)
         self.textbuffer = self.textview.get_buffer()
         scroller.set_child(self.textview)
@@ -63,31 +60,7 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
 
         copy_btn = Gtk.Button(label="📋 Copy to clipboard")
         copy_btn.connect("clicked", self.copy_to_clipboard)
-        copy_btn.get_style_context().add_class("colorful-copy")
         btn_box.append(copy_btn)
-
-        self.apply_css()
-
-    def apply_css(self):
-        css = b"""
-        .colorful-copy {
-            background-image: linear-gradient(to right, #f78ca0, #f9748f, #fd868c, #fe9a8b);
-            color: white;
-            font-weight: bold;
-            border-radius: 12px;
-            padding: 8px 16px;
-        }
-        .colorful-copy:hover {
-            opacity: 0.9;
-        }
-        """
-        provider = Gtk.CssProvider()
-        provider.load_from_data(css)
-        Gtk.StyleContext.add_provider_for_display(
-            Gdk.Display.get_default(),
-            provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
-        )
 
     def fetch_bibtex(self, _btn):
         doi = self.doi_entry.get_text().strip()
@@ -100,10 +73,13 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
 
     def _fetch_bibtex_async(self, doi):
         try:
-            d2b = Doi2Bib()
-            bibtex = d2b.query(doi)
-            self.textbuffer.set_text(bibtex)
-            self.status.set_text("✅ Fetched successfully.")
+            found, bibtex = get_bib_from_doi(doi)
+            if found:
+                self.textbuffer.set_text(bibtex)
+                self.status.set_text("✅ Fetched successfully.")
+            else:
+                self.textbuffer.set_text("")
+                self.status.set_text("Error: DOI not found or CrossRef request failed.")
         except Exception as e:
             self.textbuffer.set_text("")
             self.status.set_text(f"Error: {e}")
