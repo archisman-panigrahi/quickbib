@@ -39,12 +39,26 @@ class QuickBibWindow(Gtk.ApplicationWindow):
         # Text view
         scroller = Gtk.ScrolledWindow()
         scroller.set_min_content_height(250)
+        # Add a small outer margin so the scroller (and its scrollbar) does
+        # not sit flush against the window edges.
+        scroller.set_margin_start(8)
+        scroller.set_margin_end(8)
         # Allow the scroller (text output area) to expand vertically when the
         # window is resized so the space below the buttons doesn't grow.
         scroller.set_vexpand(True)
         box.append(scroller)
 
         self.textview = Gtk.TextView()
+        # Give the text inside the TextView a small left/right inset so the
+        # BibTeX lines don't touch the scroller borders.
+        try:
+            # Gtk.TextView provides left/right margin setters
+            self.textview.set_left_margin(6)
+            self.textview.set_right_margin(6)
+        except AttributeError:
+            # Older bindings might not expose these; ignore if unavailable.
+            pass
+
         # Wrap long lines so output never extends off the visible area
         self.textview.set_wrap_mode(Gtk.WrapMode.WORD)
         self.textview.set_editable(False)
@@ -100,7 +114,7 @@ class QuickBibWindow(Gtk.ApplicationWindow):
 
 class QuickBibApp(Gtk.Application):
     def __init__(self):
-        super().__init__(application_id="io.github.archisman-panigrahi.quickbib")
+        super().__init__(application_id="io.github.archisman_panigrahi.quickbib")
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app):
