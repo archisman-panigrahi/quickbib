@@ -11,11 +11,6 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app)
         self.set_title("DOI → BibTeX")
-        self.set_default_size(700, 400)
-        # self.set_margin_top(12)
-        # self.set_margin_bottom(12)
-        # self.set_margin_start(12)
-        # self.set_margin_end(12)
 
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.set_child(box)
@@ -56,6 +51,8 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
 
         # Buttons
         btn_box = Gtk.Box(spacing=8)
+        # Center the button box horizontally
+        btn_box.set_halign(Gtk.Align.CENTER)
         box.append(btn_box)
 
         copy_btn = Gtk.Button(label="📋 Copy to clipboard")
