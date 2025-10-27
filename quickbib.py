@@ -6,7 +6,7 @@ gi.require_version('Gtk', '4.0')
 from gi.repository import Gtk, GLib
 from helpers import get_bibtex_for_doi, copy_to_clipboard
 
-class Doi2BibWindow(Gtk.ApplicationWindow):
+class QuickBibWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app)
         self.set_title("DOI → BibTeX")
@@ -39,6 +39,9 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
         # Text view
         scroller = Gtk.ScrolledWindow()
         scroller.set_min_content_height(250)
+        # Allow the scroller (text output area) to expand vertically when the
+        # window is resized so the space below the buttons doesn't grow.
+        scroller.set_vexpand(True)
         box.append(scroller)
 
         self.textview = Gtk.TextView()
@@ -52,6 +55,9 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
         btn_box = Gtk.Box(spacing=8)
         # Center the button box horizontally
         btn_box.set_halign(Gtk.Align.CENTER)
+        # Ensure the button box stays compact vertically and doesn't absorb
+        # extra space when the window is resized.
+        btn_box.set_vexpand(False)
         box.append(btn_box)
 
         copy_btn = Gtk.Button(label="📋 Copy to clipboard")
@@ -92,16 +98,16 @@ class Doi2BibWindow(Gtk.ApplicationWindow):
             self.status.set_text("Nothing to copy.")
 
 
-class Doi2BibApp(Gtk.Application):
+class QuickBibApp(Gtk.Application):
     def __init__(self):
         super().__init__(application_id="io.github.archisman-panigrahi.quickbib")
         self.connect("activate", self.on_activate)
 
     def on_activate(self, app):
-        win = Doi2BibWindow(self)
+        win = QuickBibWindow(self)
         win.present()
 
 
 if __name__ == "__main__":
-    app = Doi2BibApp()
+    app = QuickBibApp()
     app.run(sys.argv)
