@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from doi2bib.crossref import get_bib_from_doi
+from doi2bib3.backend import get_bibtex_from_doi, DOIError
 import pyperclip
 
 
@@ -13,9 +13,18 @@ def get_bibtex_for_doi(doi: str):
       contains the string representation of the exception.
     """
     try:
-        found, bibtex = get_bib_from_doi(doi)
-        return found, bibtex, None
+        # doi2bib3 provides get_bibtex_from_doi which returns the BibTeX
+        # string or raises DOIError on resolution problems. To preserve the
+        # original contract, return (True, bibtex, None) on success and
+        # (False, "", error) on failure.
+        bibtex = get_bibtex_from_doi(doi)
+        return True, bibtex, None
+    except DOIError as e:
+        # DOIError indicates resolution/lookup failure; return found=False
+        # and include the error message so the UI can display it.
+        return False, "", str(e)
     except Exception as e:
+        # Any other unexpected exception
         return False, "", str(e)
 
 
