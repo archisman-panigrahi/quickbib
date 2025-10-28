@@ -23,7 +23,7 @@ class QuickBibWindow(Gtk.ApplicationWindow):
         entry_box.append(label)
 
         self.doi_entry = Gtk.Entry()
-        self.doi_entry.set_placeholder_text("DOI or ArXiv ID or ArXiv URL or Journal URL")
+        self.doi_entry.set_placeholder_text("DOI or arXiv ID or arXiv URL or Journal URL")
         self.doi_entry.set_hexpand(True)
         entry_box.append(self.doi_entry)
 
