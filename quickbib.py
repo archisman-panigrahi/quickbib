@@ -10,16 +10,19 @@ class QuickBibWindow(Gtk.ApplicationWindow):
     def __init__(self, app):
         super().__init__(application=app)
         self.set_title("DOI → BibTeX")
+        self.set_default_size(420, -1)
 
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
         self.set_child(box)
 
         # DOI entry
         entry_box = Gtk.Box(spacing=8)
+        entry_box.set_margin_top(8)
         box.append(entry_box)
 
         label = Gtk.Label(label="DOI:")
         label.set_halign(Gtk.Align.START)
+        label.set_margin_start(8)
         entry_box.append(label)
 
         self.doi_entry = Gtk.Entry()
@@ -29,6 +32,7 @@ class QuickBibWindow(Gtk.ApplicationWindow):
 
         fetch_btn = Gtk.Button(label="Fetch")
         fetch_btn.connect("clicked", self.fetch_bibtex)
+        fetch_btn.set_margin_end(8)
         entry_box.append(fetch_btn)
 
         # Status label
