@@ -45,7 +45,10 @@ block_cipher = None
 pyqt_datas, pyqt_binaries, pyqt_hiddenimports = collect_all('PyQt6')
 
 # Include application assets (icons, screenshots, etc.)
-datas = pyqt_datas + Tree('assets', prefix='assets')
+# Also include the repository LICENSE file and place it into the `quickbib` package
+# so runtime code that does Path(__file__).with_name('LICENSE') can find it when
+# PyInstaller produces the onedir distribution.
+datas = pyqt_datas + Tree('assets', prefix='assets') + [(os.path.join('.', 'LICENSE'), 'quickbib')]
 binaries = pyqt_binaries
 hiddenimports = pyqt_hiddenimports + ['doi2bib3']
 
