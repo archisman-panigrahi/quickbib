@@ -8,9 +8,10 @@
 RequestExecutionLevel user
 SetCompress off
 
-; Use the repository-provided ICO as the installer icon. The path is relative to the repo root
-; since makensis is invoked from the workflow's working directory (repo root), use a relative path
-Icon "assets\\icon\\64x64\\io.github.archisman_panigrahi.quickbib.ico"
+; The NSIS script lives in the `windows_packaging` directory. Paths in this script
+; are resolved relative to the script's location, so reference files in the repo root
+; using a parent-directory prefix.
+Icon "..\\assets\\icon\\64x64\\io.github.archisman_panigrahi.quickbib.ico"
 
 OutFile "${APP_NAME}-Installer.exe"
 InstallDir "$PROGRAMFILES\\${APP_NAME}"
@@ -20,8 +21,8 @@ Page instfiles
 
 Section "Install"
   SetOutPath "$INSTDIR"
-  ; Copy all files from the PyInstaller output
-  File /r "dist\\QuickBib\\*"
+  ; Copy all files from the PyInstaller output (dist is at repo root, so step up one dir)
+  File /r "..\\dist\\QuickBib\\*"
 
   ; Create Start Menu shortcut
   CreateDirectory "$SMPROGRAMS\\${APP_NAME}"

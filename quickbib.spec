@@ -8,7 +8,36 @@ an --onedir (COLLECT) output named `QuickBib` which the NSIS script packages.
 If you want an exe-only single-file build set `onefile=True` and adjust the NSIS script.
 """
 import sys
-from PyInstaller.utils.hooks import collect_all, Tree
+import os
+try:
+    # Newer PyInstaller versions expose Tree in utils.hooks
+    from PyInstaller.utils.hooks import collect_all, Tree
+except Exception:
+    # Fallback: define a simple Tree helper that mimics PyInstaller.utils.hooks.Tree
+    from PyInstaller.utils.hooks import collect_all
+
+    def Tree(source_dir, prefix=None):
+        """
+        Walk source_dir and return a list of (src, dest) tuples suitable for
+        passing to Analysis(datas=...). dest paths are relative to the
+        distribution root, optionally prefixed.
+        This is a minimal compatible fallback for including static asset files.
+        """
+        if prefix is None:
+            prefix = ''
+        entries = []
+        for root, _, files in os.walk(source_dir):
+            rel_dir = os.path.relpath(root, source_dir)
+            # When rel_dir is '.', we want to place files directly under prefix
+            rel_dir = '' if rel_dir == '.' else rel_dir
+            for f in files:
+                src = os.path.join(root, f)
+                if rel_dir:
+                    dest = os.path.join(prefix, rel_dir)
+                else:
+                    dest = prefix
+                entries.append((src, dest))
+        return entries
 
 block_cipher = None
 

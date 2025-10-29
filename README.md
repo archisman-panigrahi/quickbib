@@ -1,6 +1,6 @@
 # QuickBib
 
-This is a GUI around [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) python package that allows you to get the bibtex entry from a DOI number.
+This is a python package that allows you to get the bibtex entry from a DOI number. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend.
  
 ![screenshot](assets/screenshots/quickbib_arxiv.png)
 
@@ -28,6 +28,13 @@ On Arch Linux, you can get it from the AUR
 
 ```
 yay -S quickbib
+```
+
+On Ubuntu (24.04+), you can use our [official PPA](https://code.launchpad.net/~apandada1/+archive/ubuntu/quickbib)
+```
+sudo add-apt-repository ppa:apandada1/quickbib
+sudo apt update
+sudo apt install quickbib
 ```
 
 To install from source, first, install the required dependencies, pyqt6 and [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3). Afterwards, you can use meson to install quickbib.
