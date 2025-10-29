@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+%:
+	dh $@ --with python3 --buildsystem=meson
+
+.PHONY: override_dh_auto_configure
+override_dh_auto_configure:
+	# Use meson's default configure step; set builddir to build
+	dh_auto_configure -- -Dprefix=/usr -Dbuildtype=release -Db_ndebug=true
