@@ -31,10 +31,21 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build with PyInstaller (use spec)
-        shell: bash
+        # Use PowerShell on the Windows runner to avoid path/translation issues with Git Bash
+        shell: pwsh
         run: |
-          # Use the repo's PyInstaller spec to collect PyQt6 plugins and assets.
-          pyinstaller --noconfirm quickbib.spec
+          # Debug: show current working directory and workspace contents so we can diagnose
+          # why the spec file isn't visible to PyInstaller on the runner.
+          Write-Host "GITHUB_WORKSPACE=$env:GITHUB_WORKSPACE"
+          Write-Host "Current directory:"
+          pwd
+          Write-Host "Listing current directory contents:"
+          Get-ChildItem -Force
+          Write-Host "Listing GITHUB_WORKSPACE contents:"
+          Get-ChildItem -Path $env:GITHUB_WORKSPACE -Force
+
+          # Run PyInstaller using an absolute Windows path to the spec to avoid cwd/path issues.
+          python -m PyInstaller --noconfirm "$env:GITHUB_WORKSPACE\quickbib.spec"
 
       - name: Show dist contents
         run: |
