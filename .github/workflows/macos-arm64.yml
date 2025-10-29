@@ -1,10 +1,9 @@
 name: Build macOS (Apple Silicon) DMG
 
 on:
-  push:
-    tags:
-      - 'v*'
-  workflow_dispatch: {}
+  release:
+    types: [published]
+  workflow_dispatch:
 
 permissions:
   contents: write
