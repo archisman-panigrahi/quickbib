@@ -1,3 +1,9 @@
+quickbib (0.3-1) unstable; urgency=medium
+
+  * use better formatting of output
+
+ -- Archisman Panigrahi <apandada1@gmail.com>  Wed, 29 Oct 2025 18:51:45 -0400
+
 quickbib (0.2-1) unstable; urgency=medium
 
   * New version with bugfixes
