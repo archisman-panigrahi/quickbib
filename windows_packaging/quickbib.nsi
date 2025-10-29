@@ -6,7 +6,7 @@
 !define VERSION "0.2"
 
 ; Installer display name shown in the window title and installer UI
-Name "${APP_NAME} Setup"
+Name "${APP_NAME}"
 
 ; The installer needs to write under Program Files and modify HKLM; require elevation.
 RequestExecutionLevel admin
