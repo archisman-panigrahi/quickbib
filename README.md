@@ -36,7 +36,7 @@ To uninstall,
 meson uninstall -C builddir
 ```
 ### Windows and MacOS
-Prebuilt installers are available to download in the [Releases](https://github.com/archisman-panigrahi/quickbib/releases) section.
+Prebuilt installers are available to download in [GitHub Releases](https://github.com/archisman-panigrahi/QuickBib/releases/latest).
 
 ## How to run from source?
 
