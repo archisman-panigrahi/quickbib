@@ -1,6 +1,6 @@
 # QuickBib
 
-This is a python package that allows you to get the bibtex entry from a DOI number. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend.
+This is a python package that allows you to get the bibtex entry from a DOI number. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend. It is licensed under GPLv3.
  
 ![screenshot](assets/screenshots/quickbib_arxiv.png)
 
