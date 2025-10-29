@@ -42,7 +42,7 @@ class QuickBibWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Quickbib: DOI → BibTeX")
-        self.resize(500, 360)
+        self.resize(500, 380)
 
         central = QWidget()
         self.setCentralWidget(central)
