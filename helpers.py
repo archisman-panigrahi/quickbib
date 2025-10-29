@@ -1,7 +1,20 @@
 #!/usr/bin/env python3
+# Copyright (c) 2025 Archisman Panigrahi <apandada1ATgmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from doi2bib3.backend import get_bibtex_from_doi, DOIError
-import pyperclip
 
 
 def get_bibtex_for_doi(doi: str):
@@ -32,8 +45,17 @@ def copy_to_clipboard(text: str) -> bool:
     """Copy text to the system clipboard.
     Returns True on success, False otherwise.
     """
+    # Use the native Qt clipboard only. If there is no active Qt
+    # application instance, return False (caller should ensure a
+    # QApplication/QGuiApplication is running when using this helper).
     try:
-        pyperclip.copy(text)
+        from PyQt6.QtGui import QGuiApplication
+
+        app = QGuiApplication.instance()
+        if app is None:
+            return False
+        cb = QGuiApplication.clipboard()
+        cb.setText(text)
         return True
     except Exception:
         return False
