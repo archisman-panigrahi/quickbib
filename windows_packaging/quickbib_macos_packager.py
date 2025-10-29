@@ -20,6 +20,7 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+import plistlib
 
 ROOT = Path(__file__).resolve().parents[1]
 VENV_DIR = ROOT / ".venv_macos_build"
@@ -177,6 +178,14 @@ def create_dmg():
     if app_bundle is None or not app_bundle.exists():
         raise SystemExit(f"Failed to find built .app bundle in dist/ (checked {candidate1}, {candidate2} and recursive search)")
 
+    # Ensure app Info.plist contains a proper version string
+    # Try to import package metadata from the repo if available
+    try:
+        sys.path.insert(0, str(ROOT))
+        from quickbib.app_info import APP_VERSION
+    except Exception:
+        APP_VERSION = None
+
     out_dir = ROOT / "dist_artifacts"
     out_dir.mkdir(parents=True, exist_ok=True)
     dmg_path = out_dir / f"{BUILD_NAME}-macos-arm64.dmg"
@@ -187,6 +196,20 @@ def create_dmg():
         staged = tmp_path / app_bundle.name
         print("Copying app bundle to staging", staged)
         shutil.copytree(app_bundle, staged, symlinks=True)
+
+        # Before creating the DMG, update the app bundle Info.plist with version
+        if APP_VERSION is not None:
+            info_plist = staged / "Contents" / "Info.plist"
+            try:
+                with open(info_plist, 'rb') as f:
+                    plist = plistlib.load(f)
+                plist['CFBundleShortVersionString'] = APP_VERSION
+                plist['CFBundleVersion'] = APP_VERSION
+                with open(info_plist, 'wb') as f:
+                    plistlib.dump(plist, f)
+                print("Updated Info.plist with version:", APP_VERSION)
+            except Exception:
+                print("Warning: failed to update Info.plist with version")
 
         # Create the DMG using hdiutil (macOS only)
         # Other options: create a DMG with a link to /Applications for drag-to-install
