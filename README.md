@@ -25,6 +25,7 @@ python3 -m quickbib
     <img src="https://repology.org/badge/vertical-allrepos/quickbib.svg" alt="Packaging status" align="right">
 </a>
 On Arch Linux, you can get it from the AUR
+
 ```
 yay -S quickbib
 ```
