@@ -14,6 +14,10 @@ RequestExecutionLevel admin
 !include nsDialogs.nsh
 !include LogicLib.nsh
 
+; Use Modern UI 2 so we can set the installer UI icon to the application icon
+!define MUI_ICON "..\\assets\\icon\\64x64\\io.github.archisman_panigrahi.quickbib.ico"
+!include MUI2.nsh
+
 Var RADIO_ALL
 Var RADIO_USER
 Var INSTALL_SCOPE
