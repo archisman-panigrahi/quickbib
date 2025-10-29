@@ -84,10 +84,19 @@ class AboutDialog(QDialog):
         vbox.addLayout(header)
 
         icon_label = QLabel()
-        # Try system / theme icon once (do not fallback to bundled file).
+        # Try system/theme icon; if not found, fallback to bundled asset.
         try:
             theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.quickbib")
-            pix = theme_icon.pixmap(64, 64) if not theme_icon.isNull() else QPixmap()
+            if not theme_icon.isNull():
+                pix = theme_icon.pixmap(64, 64)
+            else:
+                asset_path = Path(__file__).parent / "assets" / "icon" / "64x64" / "io.github.archisman_panigrahi.quickbib.png"
+                if asset_path.exists():
+                    pix = QPixmap(str(asset_path))
+                    if pix.isNull():
+                        pix = QPixmap()
+                else:
+                    pix = QPixmap()
         except Exception:
             pix = QPixmap()
         icon_label.setPixmap(pix)
@@ -313,6 +322,10 @@ def main(argv):
         theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.quickbib")
         if not theme_icon.isNull():
             app.setWindowIcon(theme_icon)
+        else:
+            asset_path = Path(__file__).parent / "assets" / "icon" / "64x64" / "io.github.archisman_panigrahi.quickbib.png"
+            if asset_path.exists():
+                app.setWindowIcon(QIcon(str(asset_path)))
     except Exception:
         pass
     win = QuickBibWindow()
