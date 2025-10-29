@@ -84,7 +84,7 @@ class AboutDialog(QDialog):
         about_html = f"""
         <p>{APP_NAME} fetches BibTeX entries from DOIs, arXiv IDs, and known journal URLs.
         It is a small utility to quickly convert identifiers into usable BibTeX records.</p>
-        <p> Quickbib uses <a href="https://github.com/archisman-panigrahi/doi2bib3">doi2bib3</a>
+        <p> QuickBib uses <a href="https://github.com/archisman-panigrahi/doi2bib3">doi2bib3</a>
         as its backend for DOI to BibTeX conversion.</p>
         <p>
           <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a>
