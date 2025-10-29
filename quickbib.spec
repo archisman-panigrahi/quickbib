@@ -50,7 +50,7 @@ binaries = pyqt_binaries
 hiddenimports = pyqt_hiddenimports + ['doi2bib3']
 
 a = Analysis(
-    ['quickbib_launcher.py'],
+    ['windows_packaging/quickbib_launcher.py'],
     pathex=['.'],
     binaries=binaries,
     datas=datas,
