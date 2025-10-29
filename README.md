@@ -21,7 +21,15 @@ python3 -m quickbib
 
 ## How to install?
 
-First, install the required dependencies, pyqt6 and [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3). Afterwards, you can use meson to install quickbib.
+<a href="https://repology.org/project/quickbib/versions">
+    <img src="https://repology.org/badge/vertical-allrepos/quickbib.svg" alt="Packaging status" align="right">
+</a>
+On Arch Linux, you can get it from the AUR
+```
+yay -S quickbib
+```
+
+To install from source, first, install the required dependencies, pyqt6 and [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3). Afterwards, you can use meson to install quickbib.
 
 ```
 meson setup builddir --prefix="$HOME/.local"
