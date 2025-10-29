@@ -48,6 +48,11 @@ class AboutDialog(QDialog):
         vbox.addLayout(header)
 
         icon_label = QLabel()
+        # Reserve a fixed area for the icon so the title stays immediately to the right
+        # even if the theme/system icon isn't available.
+        icon_label.setFixedSize(64, 64)
+        # Allow the pixmap to scale to the label size if needed.
+        icon_label.setScaledContents(True)
         # Try system/theme icon; if not found, fallback to bundled asset.
         try:
             theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.quickbib")
@@ -64,18 +69,23 @@ class AboutDialog(QDialog):
         except Exception:
             pix = QPixmap()
         icon_label.setPixmap(pix)
+        # Center the pixmap within the reserved label area.
+        icon_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         header.addWidget(icon_label)
 
         title_layout = QVBoxLayout()
+        # Keep title and subtitle left-aligned and vertically centered next to the icon.
+        title_layout.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         title_label = QLabel(f"{APP_NAME}")
         title_font = QFont()
         title_font.setPointSize(16)
         title_font.setBold(True)
         title_label.setFont(title_font)
+        title_label.setAlignment(Qt.AlignmentFlag.AlignLeft)
         title_layout.addWidget(title_label)
 
         subtitle = QLabel(f"Version {APP_VERSION}")
-        subtitle.setStyleSheet("color: #666;")
+        subtitle.setAlignment(Qt.AlignmentFlag.AlignLeft)
         title_layout.addWidget(subtitle)
 
         header.addLayout(title_layout)
