@@ -35,7 +35,9 @@ from PyQt6.QtWidgets import (
     QFrame,
     QStyle,
 )
-from PyQt6.QtGui import QAction, QPixmap, QFont
+from PyQt6.QtGui import QAction, QPixmap, QFont, QIcon
+import contextlib
+import os
 from PyQt6.QtCore import QObject, pyqtSignal, Qt
 
 from helpers import get_bibtex_for_doi, copy_to_clipboard
@@ -46,6 +48,7 @@ APP_VERSION = "0.1"
 HOMEPAGE = "https://github.com/archisman-panigrahi/quickbib"
 REPO_URL = HOMEPAGE
 LICENSE_PATH = Path(__file__).with_name("LICENSE")
+ICON_PATH = Path(__file__).with_name("io.github.archisman_panigrahi.quickbib.svg")
 
 
 class FetchWorker(QObject):
@@ -67,7 +70,7 @@ class AboutDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("About QuickBib")
-        self.resize(600, 420)
+        self.resize(600, 360)
 
         # Main layout
         vbox = QVBoxLayout()
@@ -81,14 +84,29 @@ class AboutDialog(QDialog):
         vbox.addLayout(header)
 
         icon_label = QLabel()
-        # Try to get a meaningful application icon; fall back to a generic style icon
+        # Prefer a bundled SVG icon if available. Use QIcon to obtain a scaled
+        # pixmap at 64x64 to avoid huge SVG rendering issues. Fall back to the
+        # application window icon or a generic system icon.
+        pix = None
         try:
-            app_icon = QApplication.instance().windowIcon()
-            pix = app_icon.pixmap(64, 64)
-            if pix.isNull():
-                raise Exception()
+            if ICON_PATH.exists():
+                # Qt may print SVG parsing errors to stderr; temporarily
+                # redirect stderr to avoid polluting the user's terminal.
+                with open(os.devnull, "w") as devnull:
+                    with contextlib.redirect_stderr(devnull):
+                        icon = QIcon(str(ICON_PATH))
+                pix = icon.pixmap(64, 64)
         except Exception:
-            pix = self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon).pixmap(64, 64)
+            pix = None
+
+        if not pix or pix.isNull():
+            try:
+                app_icon = QApplication.instance().windowIcon()
+                pix = app_icon.pixmap(64, 64)
+                if pix.isNull():
+                    raise Exception()
+            except Exception:
+                pix = self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon).pixmap(64, 64)
         icon_label.setPixmap(pix)
         header.addWidget(icon_label)
 
@@ -307,6 +325,12 @@ class QuickBibWindow(QMainWindow):
 
 def main(argv):
     app = QApplication(argv)
+    # Set the application icon if bundled SVG exists
+    try:
+        if ICON_PATH.exists():
+            app.setWindowIcon(QIcon(str(ICON_PATH)))
+    except Exception:
+        pass
     win = QuickBibWindow()
     win.show()
     return app.exec()
