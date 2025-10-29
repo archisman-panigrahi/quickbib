@@ -1,0 +1,45 @@
+name: Build macOS (Apple Silicon) DMG
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build-macos-arm64:
+    # IMPORTANT: Use a self-hosted Apple Silicon Mac runner (arm64).
+    # Example labels for a self-hosted runner: [self-hosted, macos, arm64]
+    # GitHub-hosted macOS runners are typically Intel; building an arm64
+    # binary reliably requires an Apple Silicon machine or building a
+    # universal2 binary by other means. See README notes in this workflow.
+    runs-on: [self-hosted, macos, arm64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Ensure build script is executable
+        run: |
+          chmod +x windows_packaging/quickbib_macos_packager.py
+
+      - name: Run macOS packager
+        # This script creates a venv, installs deps, runs PyInstaller and
+        # creates a compressed DMG using hdiutil. It expects to run on macOS.
+        run: |
+          python3 windows_packaging/quickbib_macos_packager.py
+
+      - name: Upload DMG artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quickbib-macos-dmg
+          path: dist_artifacts/*.dmg
+
+  # Optional: a hosted-runner variant is possible but may produce an Intel
+  # build. If you must use GitHub-hosted runners, consider building a
+  # universal2 binary on an Apple Silicon runner or building on a macOS
+  # machine and uploading artifacts to GitHub Releases.

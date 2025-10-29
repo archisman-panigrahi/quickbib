@@ -1,0 +1,208 @@
+#!/usr/bin/env python3
+"""
+A small macOS packager script intended to be run on a macOS machine (Apple
+Silicon recommended) or macOS self-hosted runner. It will:
+
+- create an isolated venv
+- pip install application requirements + pyinstaller
+- run pyinstaller to build a .app bundle
+- create a compressed DMG that can be distributed and dragged into /Applications
+
+Note: This script keeps things simple and focuses on producing a working DMG.
+Code signing and notarization are out of scope and should be performed on a
+developer machine or CI runner with the appropriate certificates.
+"""
+from __future__ import annotations
+
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+VENV_DIR = ROOT / ".venv_macos_build"
+DIST_DIR = ROOT / "dist"
+BUILD_NAME = "QuickBib"
+
+
+def run(cmd, **kwargs):
+    print("$", " ".join(cmd))
+    subprocess.check_call(cmd, **kwargs)
+
+
+def ensure_venv():
+    if not VENV_DIR.exists():
+        print("Creating virtual environment at", VENV_DIR)
+        run([sys.executable, "-m", "venv", str(VENV_DIR)])
+
+
+def venv_python():
+    return str(VENV_DIR / "bin" / "python")
+
+
+def install_deps():
+    pip = [venv_python(), "-m", "pip", "install", "--upgrade", "pip"]
+    run(pip)
+    # install project requirements
+    req = ROOT / "requirements.txt"
+    if req.exists():
+        run([venv_python(), "-m", "pip", "install", "-r", str(req)])
+    # install pyinstaller
+    run([venv_python(), "-m", "pip", "install", "pyinstaller==5.11.0"])  # pinned known-good
+
+
+def _find_or_make_icns() -> Path | None:
+    """Find a .icns file in assets/icon or try to generate one from PNG sizes.
+
+    Returns the Path to the .icns file or None if not available.
+    The generator uses `iconutil` (macOS) and the PNGs under assets/icon/*.
+    """
+    icons_dir = ROOT / "assets" / "icon"
+    if not icons_dir.exists():
+        return None
+
+    # Prefer a bundled .icns if present
+    icns = next(icons_dir.glob("*.icns"), None)
+    if icns:
+        return icns
+
+    # If on macOS and iconutil is available, try to assemble an .iconset
+    if sys.platform != "darwin":
+        return None
+
+    if shutil.which("iconutil") is None:
+        return None
+
+    # Map available PNG folders to iconset filenames
+    mapping = {
+        "16x16": "icon_16x16.png",
+        "32x32": "icon_32x32.png",
+        "64x64": "icon_64x64.png",
+        "128x128": "icon_128x128.png",
+    }
+
+    with tempfile.TemporaryDirectory() as tmp:
+        iconset = Path(tmp) / (BUILD_NAME + ".iconset")
+        iconset.mkdir()
+
+        found_any = False
+        for folder_name, icon_name in mapping.items():
+            src_dir = icons_dir / folder_name
+            if src_dir.exists():
+                # pick the first png inside
+                png = next(src_dir.glob("*.png"), None)
+                if png:
+                    dest = iconset / icon_name
+                    shutil.copyfile(png, dest)
+                    found_any = True
+                    # if we have a 64x64, make it 32x32@2x which iconutil understands
+                    if folder_name == "64x64":
+                        (iconset / "icon_32x32@2x.png").write_bytes(dest.read_bytes())
+
+        if not found_any:
+            return None
+
+        out_icns = Path(tmp) / (BUILD_NAME + ".icns")
+        try:
+            run(["iconutil", "-c", "icns", str(iconset), "-o", str(out_icns)])
+        except subprocess.CalledProcessError:
+            return None
+
+        if out_icns.exists():
+            # move to a persistent location inside dist_artifacts for reproducibility
+            out_dir = ROOT / "dist_artifacts"
+            out_dir.mkdir(parents=True, exist_ok=True)
+            persistent = out_dir / out_icns.name
+            shutil.copyfile(out_icns, persistent)
+            return persistent
+
+    return None
+
+
+def build_app():
+    # Ensure clean build
+    if (ROOT / "build").exists():
+        shutil.rmtree(ROOT / "build")
+    if (ROOT / "dist").exists():
+        shutil.rmtree(ROOT / "dist")
+
+    # Use our mac launcher as entrypoint so quickbib package is importable
+    entry = ROOT / "windows_packaging" / "quickbib_macos_launcher.py"
+
+    cmd = [
+        venv_python(), "-m", "PyInstaller",
+        "--clean",
+        "--noconfirm",
+        "--windowed",
+        "--name", BUILD_NAME,
+        str(entry)
+    ]
+
+    # Icon support: prefer a .icns in assets/icon, or try to generate one from PNGs
+    icon_path = _find_or_make_icns()
+    if icon_path:
+        print("Using icon:", icon_path)
+        cmd += ["--icon", str(icon_path)]
+
+    # Optionally include assets directory if present
+    assets = ROOT / "assets"
+    if assets.exists():
+        # PyInstaller expects --add-data in the format source:dest
+        cmd += ["--add-data", f"{assets}{os.pathsep}assets"]
+
+    run(cmd)
+
+
+def create_dmg():
+    app_dir = ROOT / "dist" / BUILD_NAME
+    app_bundle = next(app_dir.glob("*.app"), None)
+    if app_bundle is None:
+        # PyInstaller on mac produces dist/<name> (a folder) where <name>.app is inside.
+        candidate = ROOT / "dist" / BUILD_NAME / (BUILD_NAME + ".app")
+        if candidate.exists():
+            app_bundle = candidate
+    if app_bundle is None or not app_bundle.exists():
+        raise SystemExit("Failed to find built .app bundle in dist/")
+
+    out_dir = ROOT / "dist_artifacts"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    dmg_path = out_dir / f"{BUILD_NAME}-macos-arm64.dmg"
+
+    # Create a temporary staging dir that will hold the .app
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        staged = tmp_path / app_bundle.name
+        print("Copying app bundle to staging", staged)
+        shutil.copytree(app_bundle, staged, symlinks=True)
+
+        # Create the DMG using hdiutil (macOS only)
+        # Other options: create a DMG with a link to /Applications for drag-to-install
+        print("Creating compressed DMG at", dmg_path)
+        run([
+            "hdiutil", "create",
+            "-volname", BUILD_NAME,
+            "-srcfolder", str(tmp_path),
+            "-ov",
+            "-format", "UDZO",
+            str(dmg_path),
+        ])
+
+    print("DMG created:", dmg_path)
+    return dmg_path
+
+
+def main():
+    if sys.platform != "darwin":
+        print("WARNING: This packager is intended to be run on macOS. You are on:", sys.platform)
+
+    ensure_venv()
+    install_deps()
+    build_app()
+    dmg = create_dmg()
+    print("Packaging complete. Artifact:", dmg)
+
+
+if __name__ == "__main__":
+    main()
