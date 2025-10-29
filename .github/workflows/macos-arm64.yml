@@ -8,12 +8,11 @@ on:
 
 jobs:
   build-macos-arm64:
-    # IMPORTANT: Use a self-hosted Apple Silicon Mac runner (arm64).
-    # Example labels for a self-hosted runner: [self-hosted, macos, arm64]
-    # GitHub-hosted macOS runners are typically Intel; building an arm64
-    # binary reliably requires an Apple Silicon machine or building a
-    # universal2 binary by other means. See README notes in this workflow.
-    runs-on: [self-hosted, macos, arm64]
+    # Use GitHub-hosted macOS runner. Note: hosted macOS runners may be
+    # Intel or Apple Silicon depending on availability; check the runner
+    # architecture in the logs. If you specifically require Apple Silicon
+    # (arm64) you may still need a self-hosted runner.
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
@@ -27,6 +26,12 @@ jobs:
       - name: Ensure build script is executable
         run: |
           chmod +x windows_packaging/quickbib_macos_packager.py
+
+      - name: Show runner info
+        run: |
+          echo "sw_vers:"; sw_vers
+          echo "uname -m:"; uname -m
+          echo "arch:"; arch
 
       - name: Run macOS packager
         # This script creates a venv, installs deps, runs PyInstaller and
