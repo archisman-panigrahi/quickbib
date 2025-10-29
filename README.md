@@ -1,6 +1,6 @@
-# QuickBib
+# <img src="assets/icon/scalable/io.github.archisman_panigrahi.quickbib.svg" align="left" width="100" height="100">  <br> QuickBib
 
-This is a python package that allows you to get the bibtex entry from a DOI number. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend. It is licensed under GPLv3.
+This is a cross platform app that enables you to get the bibtex entry from a DOI number. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend. Written in Python, QuickBib is licensed under GPLv3.
  
 ![screenshot](assets/screenshots/quickbib_arxiv.png)
 
@@ -36,7 +36,7 @@ To uninstall,
 meson uninstall -C builddir
 ```
 ### Windows and MacOS
-Prebuilt installers are available to download in the [Releases](https://github.com/archisman-panigrahi/quickbib/releases) section.
+Prebuilt installers are available to download in [GitHub Releases](https://github.com/archisman-panigrahi/QuickBib/releases/latest).
 
 ## How to run from source?
 
