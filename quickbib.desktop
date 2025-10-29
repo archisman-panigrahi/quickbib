@@ -2,10 +2,11 @@
 Type=Application
 Name=QuickBib
 GenericName=Bibliography Helper
-Comment=Search and manage bibliographic entries
+Comment=Create bib entry from DOI and more
 Exec=quickbib %U
 Icon=io.github.archisman_panigrahi.quickbib
 Terminal=false
+Keywords=bib;doi;doi2bib;doi2bib3;latex;tex;
 Categories=Office;Education;Utility;
 StartupNotify=true
 MimeType=application/x-bibtex;
