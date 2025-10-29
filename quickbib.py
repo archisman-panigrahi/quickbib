@@ -48,7 +48,7 @@ APP_VERSION = "0.1"
 HOMEPAGE = "https://github.com/archisman-panigrahi/quickbib"
 REPO_URL = HOMEPAGE
 LICENSE_PATH = Path(__file__).with_name("LICENSE")
-ICON_PATH = Path(__file__).with_name("io.github.archisman_panigrahi.quickbib.png")
+# ICON_PATH = Path(__file__).with_name("io.github.archisman_panigrahi.quickbib.png")
 
 
 class FetchWorker(QObject):
@@ -84,29 +84,12 @@ class AboutDialog(QDialog):
         vbox.addLayout(header)
 
         icon_label = QLabel()
-        # Prefer a bundled SVG icon if available. Use QIcon to obtain a scaled
-        # pixmap at 64x64 to avoid huge SVG rendering issues. Fall back to the
-        # application window icon or a generic system icon.
-        pix = None
+        # Try system / theme icon once (do not fallback to bundled file).
         try:
-            if ICON_PATH.exists():
-                # Qt may print SVG parsing errors to stderr; temporarily
-                # redirect stderr to avoid polluting the user's terminal.
-                with open(os.devnull, "w") as devnull:
-                    with contextlib.redirect_stderr(devnull):
-                        icon = QIcon(str(ICON_PATH))
-                pix = icon.pixmap(64, 64)
+            theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.quickbib")
+            pix = theme_icon.pixmap(64, 64) if not theme_icon.isNull() else QPixmap()
         except Exception:
-            pix = None
-
-        if not pix or pix.isNull():
-            try:
-                app_icon = QApplication.instance().windowIcon()
-                pix = app_icon.pixmap(64, 64)
-                if pix.isNull():
-                    raise Exception()
-            except Exception:
-                pix = self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon).pixmap(64, 64)
+            pix = QPixmap()
         icon_label.setPixmap(pix)
         header.addWidget(icon_label)
 
@@ -325,10 +308,11 @@ class QuickBibWindow(QMainWindow):
 
 def main(argv):
     app = QApplication(argv)
-    # Set the application icon if bundled SVG exists
+    # Try to set the application icon from the system theme (one attempt only).
     try:
-        if ICON_PATH.exists():
-            app.setWindowIcon(QIcon(str(ICON_PATH)))
+        theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.quickbib")
+        if not theme_icon.isNull():
+            app.setWindowIcon(theme_icon)
     except Exception:
         pass
     win = QuickBibWindow()
