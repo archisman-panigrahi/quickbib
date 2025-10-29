@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   build-macos-arm64:
     # Use GitHub-hosted macOS runner. Note: hosted macOS runners may be
@@ -44,6 +47,14 @@ jobs:
         with:
           name: quickbib-macos-dmg
           path: dist_artifacts/*.dmg
+
+      - name: Upload DMG to GitHub Release (only for releases)
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist_artifacts/*.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Optional: a hosted-runner variant is possible but may produce an Intel
   # build. If you must use GitHub-hosted runners, consider building a
