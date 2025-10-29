@@ -67,7 +67,7 @@ class AboutDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("About QuickBib")
-        self.resize(600, 320)
+        self.resize(600, 420)
 
         # Main layout
         vbox = QVBoxLayout()
@@ -118,27 +118,17 @@ class AboutDialog(QDialog):
         tabs = QTabWidget()
         frame_layout.addWidget(tabs)
 
-        # Styling to approximate the screenshot (subtle gray tabs and rounded pane)
-        self.setStyleSheet("""
-        QTabWidget::pane { border: 1px solid #d0d0d0; background: #ffffff; border-radius: 6px; }
-        QTabBar::tab { background: #e9e9e9; padding: 6px 12px; border-top-left-radius: 4px; border-top-right-radius: 4px; }
-        QTabBar::tab:selected { background: #f5f5f5; }
-        QTextBrowser { background: transparent; }
-        # make links blue and underlined
-        QTextBrowser::anchor { color: #1a73e8; text-decoration: underline; }
-        """)
         # About tab
         about_text = QTextBrowser()
         about_html = f"""
-        <h2>{APP_NAME} <small>v{APP_VERSION}</small></h2>
         <p>{APP_NAME} fetches BibTeX entries from DOIs, arXiv IDs, and known journal URLs.
-        It's a small utility to quickly convert identifiers into usable BibTeX records.</p>
+        It is a small utility to quickly convert identifiers into usable BibTeX records.</p>
         <p> Quickbib uses <a href="https://github.com/archisman-panigrahi/doi2bib3">doi2bib3</a>
         as its backend for DOI to BibTeX conversion.</p>
         <p>
-          <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a><br/>
+          <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a>
         </p>
-        <p>License: Released under GPLv3. See the <i>License</i> tab for details.</p>
+        <p><b>License:</b> Released under GNU General Public License Version 3. See the <i>License</i> tab for details.</p>
         """
         about_text.setHtml(about_html)
         about_text.setOpenExternalLinks(True)
@@ -149,9 +139,9 @@ class AboutDialog(QDialog):
         authors_html = """
         <h3>Authors & Contributors</h3>
         <ul>
-          <li><a href="">Archisman Panigrahi</a></li>
+          <li><a href="https://github.com/archisman-panigrahi/">Archisman Panigrahi</a></li>
         </ul>
-        <p>Contributions, issues and pull requests are welcome on the project's GitHub page.</p>
+        <p>Bug reports and pull requests are welcome on the <a href="{HOMEPAGE}">project's GitHub page</a>.</p>
         """
         authors_text.setHtml(authors_html)
         authors_text.setOpenExternalLinks(True)
@@ -170,12 +160,22 @@ class AboutDialog(QDialog):
             license_text.setHtml(f"<p>License file not found in repository. See <a href=\"{REPO_URL}\">project page</a>.</p>")
         tabs.addTab(license_text, "License")
 
-        # Close button right-aligned
+        # Bottom bar with centered dedication and right-aligned Close button
         btn_hbox = QHBoxLayout()
+        # left spacer
+        btn_hbox.addStretch()
+
+        # centered dedication label
+        dedication = QLabel("<em>Dedicated to all my friends</em>")
+        dedication.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # give it an expanding policy so it sits centered
+        dedication.setMinimumWidth(240)
+        btn_hbox.addWidget(dedication)
+
+        # right side: close button
         btn_hbox.addStretch()
         close_btn = QPushButton("\u2715 Close")
         close_btn.clicked.connect(self.reject)
-        # use a small subtle style for the button
         close_btn.setFixedHeight(28)
         btn_hbox.addWidget(close_btn)
         vbox.addLayout(btn_hbox)
@@ -184,8 +184,8 @@ class AboutDialog(QDialog):
 class QuickBibWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("DOI → BibTeX")
-        self.resize(640, 360)
+        self.setWindowTitle("Quickbib: DOI → BibTeX")
+        self.resize(500, 360)
 
         central = QWidget()
         self.setCentralWidget(central)
@@ -298,7 +298,7 @@ class QuickBibWindow(QMainWindow):
         if text.strip():
             ok = copy_to_clipboard(text)
             if ok:
-                self.status.setText("Copied to clipboard!")
+                self.status.setText("✅ Copied to clipboard!")
             else:
                 self.status.setText("Failed to copy to clipboard.")
         else:
