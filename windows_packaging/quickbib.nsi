@@ -5,6 +5,9 @@
 !define COMPANY "Archisman Panigrahi"
 !define VERSION "0.2"
 
+; Installer display name shown in the window title and installer UI
+Name "${APP_NAME} Setup"
+
 ; The installer needs to write under Program Files and modify HKLM; require elevation.
 RequestExecutionLevel admin
 
@@ -67,6 +70,10 @@ Section "Install"
   SetOutPath "$INSTDIR"
   ; Copy all files from the PyInstaller output (dist is at repo root, so step up one dir)
   File /r "..\\dist\\QuickBib\\*"
+
+  ; Include repository LICENSE in the installed files so users can view the license
+  ; The LICENSE file is located at the repository root (one directory up from this script)
+  File "..\\LICENSE"
 
   ; Create Start Menu shortcut
   CreateDirectory "$SMPROGRAMS\\${APP_NAME}"

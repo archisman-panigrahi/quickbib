@@ -211,6 +211,17 @@ def create_dmg():
             except Exception:
                 print("Warning: failed to update Info.plist with version")
 
+        # Also include the repository LICENSE file inside the app bundle's Resources
+        try:
+            license_src = ROOT / "LICENSE"
+            if license_src.exists():
+                resources_dir = staged / "Contents" / "Resources"
+                resources_dir.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(license_src, resources_dir / "LICENSE")
+                print("Copied LICENSE into app bundle Resources")
+        except Exception:
+            print("Warning: failed to copy LICENSE into app bundle")
+
         # Create the DMG using hdiutil (macOS only)
         # Other options: create a DMG with a link to /Applications for drag-to-install
         print("Creating compressed DMG at", dmg_path)
