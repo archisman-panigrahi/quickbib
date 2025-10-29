@@ -156,15 +156,26 @@ def build_app():
 
 
 def create_dmg():
-    app_dir = ROOT / "dist" / BUILD_NAME
-    app_bundle = next(app_dir.glob("*.app"), None)
-    if app_bundle is None:
-        # PyInstaller on mac produces dist/<name> (a folder) where <name>.app is inside.
-        candidate = ROOT / "dist" / BUILD_NAME / (BUILD_NAME + ".app")
-        if candidate.exists():
-            app_bundle = candidate
+    # Try several common locations for the .app bundle produced by PyInstaller:
+    # - dist/<name>/<name>.app
+    # - dist/<name>.app
+    # - any .app under dist/ (first match)
+    app_bundle = None
+
+    candidate1 = ROOT / "dist" / BUILD_NAME / (BUILD_NAME + ".app")
+    candidate2 = ROOT / "dist" / (BUILD_NAME + ".app")
+    if candidate1.exists():
+        app_bundle = candidate1
+    elif candidate2.exists():
+        app_bundle = candidate2
+    else:
+        # fallback: search for any .app under dist/
+        apps = list((ROOT / "dist").glob("**/*.app"))
+        if apps:
+            app_bundle = apps[0]
+
     if app_bundle is None or not app_bundle.exists():
-        raise SystemExit("Failed to find built .app bundle in dist/")
+        raise SystemExit(f"Failed to find built .app bundle in dist/ (checked {candidate1}, {candidate2} and recursive search)")
 
     out_dir = ROOT / "dist_artifacts"
     out_dir.mkdir(parents=True, exist_ok=True)
