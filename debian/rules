@@ -5,4 +5,7 @@
 .PHONY: override_dh_auto_configure
 override_dh_auto_configure:
 	# Use meson's default configure step; set builddir to build
-	dh_auto_configure -- -Dprefix=/usr -Dbuildtype=release -Db_ndebug=true
+	# Use meson's default configure step; dh passes --prefix and --buildtype
+	# itself, so avoid passing -Dprefix or -Dbuildtype to prevent duplicate
+	# argument errors. Keep -Db_ndebug to enable non-debug builds.
+	dh_auto_configure -- -Db_ndebug=true
