@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
-from doi2bib3.backend import get_bibtex_from_doi, DOIError
+from doi2bib3 import fetch_bibtex
 
 
 def get_bibtex_for_doi(doi: str):
     try:
-        bibtex = get_bibtex_from_doi(doi)
+        bibtex = fetch_bibtex(doi)
         return True, bibtex, None
-    except DOIError as e:
-        return False, "", str(e)
     except Exception as e:
         return False, "", str(e)
 
