@@ -5,7 +5,18 @@
 !define COMPANY "Archisman Panigrahi"
 !define VERSION "0.2"
 
-RequestExecutionLevel user
+; The installer needs to write under Program Files and modify HKLM; require elevation.
+RequestExecutionLevel admin
+
+!include nsDialogs.nsh
+!include LogicLib.nsh
+
+Var RADIO_ALL
+Var RADIO_USER
+Var INSTALL_SCOPE
+
+; Custom page to select installation scope: All users (Program Files) or Current user (LocalAppData)
+Page custom ScopePageCreate ScopePageLeave
 SetCompress off
 
 ; The NSIS script lives in the `windows_packaging` directory. Paths in this script
@@ -19,6 +30,39 @@ InstallDir "$PROGRAMFILES\\${APP_NAME}"
 Page directory
 Page instfiles
 
+Function ScopePageCreate
+  nsDialogs::Create 1018
+  Pop $0
+  ${If} $0 == error
+    Abort
+  ${EndIf}
+
+  ${NSD_CreateLabel} 0 0 100% 12u "Install scope"
+  Pop $R0
+
+  ${NSD_CreateRadioButton} 0 20u 100% 12u "Install for all users (requires admin)"
+  Pop $RADIO_ALL
+
+  ${NSD_CreateRadioButton} 0 36u 100% 12u "Install for current user only"
+  Pop $RADIO_USER
+
+  ; Default to All users
+  ${NSD_SetState} $RADIO_ALL 1
+
+  nsDialogs::Show
+FunctionEnd
+
+Function ScopePageLeave
+  ${NSD_GetState} $RADIO_ALL $0
+  ${If} $0 == 1
+    StrCpy $INSTDIR "$PROGRAMFILES\\${APP_NAME}"
+    StrCpy $INSTALL_SCOPE "ALL"
+  ${Else}
+    StrCpy $INSTDIR "$LOCALAPPDATA\\Programs\\${APP_NAME}"
+    StrCpy $INSTALL_SCOPE "USER"
+  ${EndIf}
+FunctionEnd
+
 Section "Install"
   SetOutPath "$INSTDIR"
   ; Copy all files from the PyInstaller output (dist is at repo root, so step up one dir)
@@ -31,17 +75,25 @@ Section "Install"
   ; Create desktop shortcut
   CreateShortCut "$DESKTOP\\${APP_NAME}.lnk" "$INSTDIR\\QuickBib.exe"
 
-  ; Write install location for uninstaller
-  WriteRegStr HKLM "Software\\${COMPANY}\\${APP_NAME}" "Install_Dir" "$INSTDIR"
+  ; Write install location for uninstaller under HKLM if installing for all users,
+  ; otherwise record under HKCU for current-user installs.
+  StrCmp $INSTALL_SCOPE "ALL" 0 +3
+    WriteRegStr HKLM "Software\\${COMPANY}\\${APP_NAME}" "Install_Dir" "$INSTDIR"
+    Goto +2
+  WriteRegStr HKCU "Software\\${COMPANY}\\${APP_NAME}" "Install_Dir" "$INSTDIR"
 
   ; Write Uninstaller
   WriteUninstaller "$INSTDIR\\Uninstall.exe"
 SectionEnd
 
 Section "Uninstall"
-  ; Read install dir
+  ; Read install dir: prefer HKLM (all-users), fall back to HKCU (current-user)
   ReadRegStr $0 HKLM "Software\\${COMPANY}\\${APP_NAME}" "Install_Dir"
-  StrCmp $0 "" 0 done
+  StrCmp $0 "" 0 +3
+    ReadRegStr $0 HKCU "Software\\${COMPANY}\\${APP_NAME}" "Install_Dir"
+    StrCmp $0 "" 0 +2
+      ; No install dir found
+      Goto done
 
   ; Remove shortcuts
   Delete "$SMPROGRAMS\\${APP_NAME}\\${APP_NAME}.lnk"
@@ -53,8 +105,9 @@ Section "Uninstall"
 
   ; Remove registry
   DeleteRegKey HKLM "Software\\${COMPANY}\\${APP_NAME}"
+  DeleteRegKey HKCU "Software\\${COMPANY}\\${APP_NAME}"
 
 done:
   ; Remove uninstaller
-  Delete "$INSTDIR\\Uninstall.exe"
+  Delete "$0\\Uninstall.exe"
 SectionEnd
