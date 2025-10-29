@@ -89,7 +89,7 @@ class AboutDialog(QDialog):
         <p>
           <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a>
         </p>
-        <p><b>License:</b> Released under GNU General Public License Version 3. See the <i>License</i> tab for details.</p>
+        <p><b>License:</b> Released under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html#license-text"GNU General Public License Version 3</a>. Full text available on the <i>License</i> tab.</p>
         """
         about_text.setHtml(about_html)
         about_text.setOpenExternalLinks(True)
