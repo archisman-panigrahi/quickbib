@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+"""Small launcher that runs the installed quickbib.py from the shared data dir."""
+import os
+import sys
+
+# Compute datadir relative to the executable location.
+# If installed to <prefix>/bin/quickbib, this will point to <prefix>/share/quickbib
+bindir = os.path.dirname(os.path.abspath(__file__))
+# Meson installs package data in <prefix>/share/quickbib
+datadir = os.path.abspath(os.path.join(bindir, '..', 'share', 'quickbib'))
+main_py = os.path.join(datadir, 'quickbib', 'quickbib.py')
+
+# Ensure the installed `quickbib` package is importable by inserting the share/quickbib
+# parent dir so `import quickbib` works when running the installed script.
+share_pkg_parent = os.path.join(datadir)
+if os.path.isdir(share_pkg_parent) and share_pkg_parent not in sys.path:
+    sys.path.insert(0, share_pkg_parent)
+
+# Execute the installed package as a module, but ensure the installed share
+# directory is on PYTHONPATH so Python can import the `quickbib` package that
+# lives under <prefix>/share/quickbib/quickbib.
+if os.path.isdir(datadir):
+    env = os.environ.copy()
+    old_pp = env.get('PYTHONPATH', '')
+    # Prepend datadir so Python finds the installed package first.
+    env['PYTHONPATH'] = datadir + (os.pathsep + old_pp if old_pp else '')
+    args = [sys.executable, '-m', 'quickbib'] + sys.argv[1:]
+    os.execvpe(sys.executable, args, env)
+
+# Fallback: attempt to run the module in the current environment (developer
+# checkouts), which relies on package being importable from CWD.
+try:
+    os.execv(sys.executable, [sys.executable, '-m', 'quickbib'] + sys.argv[1:])
+except Exception:
+    sys.stderr.write('quickbib: cannot find installed data files at {} and fallback failed\n'.format(main_py))
+    sys.exit(1)

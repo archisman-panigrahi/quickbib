@@ -1,18 +1,3 @@
-# Copyright (c) 2025 Archisman Panigrahi <apandada1ATgmail.com>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import threading
 from pathlib import Path
 from PyQt6.QtWidgets import (
@@ -33,9 +18,9 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtGui import QAction, QPixmap, QFont, QIcon
 from PyQt6.QtCore import QObject, pyqtSignal, Qt
 
-from helpers import get_bibtex_for_doi, copy_to_clipboard
-from about_dialog import AboutDialog
-from app_info import LICENSE_PATH
+from .helpers import get_bibtex_for_doi, copy_to_clipboard
+from .about_dialog import AboutDialog
+from .app_info import LICENSE_PATH
 
 
 class FetchWorker(QObject):
@@ -135,20 +120,16 @@ class QuickBibWindow(QMainWindow):
         self.status.setText("Fetching BibTeX...")
         self.textview.clear()
 
-        # Run the fetch in a background thread to avoid blocking the UI.
         worker = FetchWorker(doi)
 
-        # Use Python thread to call worker.run and then emit finished via Qt
         def thread_target():
             worker.run()
 
-        # Connect the finished signal to UI handler
         worker.finished.connect(self.on_fetch_finished)
 
         t = threading.Thread(target=thread_target, daemon=True)
         t.start()
 
-        # keep a reference so GC doesn't remove worker until finished
         self._worker_thread = (worker, t)
 
     def on_fetch_finished(self, found: bool, bibtex: str, error: object):
@@ -162,7 +143,6 @@ class QuickBibWindow(QMainWindow):
             else:
                 self.status.setText("Error: DOI not found or CrossRef request failed.")
 
-        # release worker ref
         self._worker_thread = None
 
     def copy_to_clipboard(self):
