@@ -41,7 +41,7 @@ class FetchWorker(QObject):
 class QuickBibWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Quickbib: DOI → BibTeX")
+        self.setWindowTitle("QuickBib: DOI → BibTeX")
         self.resize(500, 380)
 
         central = QWidget()
