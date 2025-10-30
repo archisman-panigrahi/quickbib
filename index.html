@@ -82,8 +82,8 @@ sudo apt install quickbib</code></pre>
             <pre><code>yay -S quickbib</code></pre>
           </div>
           <div class="install-card">
-            <h4>From source (any distro)</h4>
-            <p>QuickBib depends on <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> for DOI resolution and usual Python/GUI dependencies. Build and install with meson:</p>
+            <h4>Install from source (any distro)</h4>
+            <p>QuickBib depends on <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> for DOI resolution and PyQt6. Build and install with meson:</p>
             <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
 cd quickbib
 meson setup builddir --prefix="$HOME/.local"
@@ -101,7 +101,7 @@ meson uninstall -C builddir</code></pre>
   <h3>macOS</h3>
   <p>No prebuilt macOS installers: Apple requires developers to pay $99/year so that users can run their apps --- we ship the source instead. Run QuickBib from source or build a macOS app using the packaging scripts if you dare. Pull requests and heroic ideas very welcome 😉.</p>
 
-        <h4>Here is how to run from source</h4>
+        <h4>Here is how to run from source (on macOS as well as GNU/Linux)</h4>
         <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
 cd quickbib
 python3 -m venv .venv
