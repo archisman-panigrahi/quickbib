@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>QuickBib — Get BibTeX from a DOI</title>
+    <meta name="description" content="QuickBib — cross-platform app to fetch BibTeX from DOI and arXiv identifiers using doi2bib3." />
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="#">
+          <img src="https://raw.githubusercontent.com/archisman-panigrahi/quickbib/main/assets/icon/scalable/io.github.archisman_panigrahi.quickbib.svg" alt="QuickBib" class="brand-icon"/>
+          <span class="brand-text">QuickBib</span>
+        </a>
+        <button id="nav-toggle" aria-label="Toggle navigation">☰</button>
+        <nav class="nav" id="main-nav">
+          <a href="#features">Features</a>
+          <a href="#install">Install</a>
+          <a href="#examples">Examples</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h1>Get BibTeX from a DOI — fast.</h1>
+            <p class="lede">QuickBib is a small cross-platform app that uses <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> to fetch accurate BibTeX for DOIs and arXiv identifiers. Works as a GUI app and also as a CLI. Perfect for research workflows, manuscripts and automation.</p>
+            <p class="cta-row">
+              <a class="btn primary" href="#install">Install on GNU/Linux</a>
+              <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">Download for Windows/MacOS</a>
+            </p>
+          </div>
+          <div class="hero-media">
+            <img src="https://raw.githubusercontent.com/archisman-panigrahi/quickbib/main/assets/screenshots/quickbib_arxiv.png" alt="QuickBib screenshot" />
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="container features">
+        <h2>Why QuickBib?</h2>
+        <p class="muted">Designed for researchers, writers and automation — QuickBib makes fetching and normalizing BibTeX simple.</p>
+        <div class="grid">
+          <article class="card">
+            <h3>Quickly obtain BibTeX</h3>
+            <p>Uses <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> strategies (content negotiation, Crossref, arXiv resolution) to return high-quality BibTeX entries.</p>
+          </article>
+          <article class="card">
+            <h3>arXiv-aware</h3>
+            <p>Paste arXiv IDs, arXiv URLs, or legacy identifiers — QuickBib detects them and resolves the DOI automatically.</p>
+          </article>
+          <article class="card">
+            <h3>GUI + CLI</h3>
+            <p>Use the GUI app for quick lookups or integrate into scripts via the CLI and programmatic API.</p>
+          </article>
+          <article class="card">
+            <h3>Packaged for GNU/Linux, Windows and MacOS</h3>
+            <p>Available via AUR on Arch and a PPA for Ubuntu. Also available as prebuilt installers on Releases for Windows and macOS.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install" class="container install">
+        <h2>How to install</h2>
+        <p class="muted">Choose the option that fits your platform.</p>
+
+        <h3>GNU/Linux</h3>
+        <div class="install-grid">
+          <div class="install-card">
+            <h4>Ubuntu (Official PPA)</h4>
+            <pre><code>sudo add-apt-repository ppa:apandada1/quickbib
+sudo apt update
+sudo apt install quickbib</code></pre>
+          </div>
+          <div class="install-card">
+            <h4>Arch Linux (AUR)</h4>
+            <pre><code>yay -S quickbib</code></pre>
+          </div>
+          <div class="install-card">
+            <h4>From source (any distro)</h4>
+            <p>QuickBib depends on <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> for DOI resolution and usual Python/GUI dependencies. Build and install with meson:</p>
+            <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
+cd quickbib
+meson setup builddir --prefix="$HOME/.local"
+meson install -C builddir
+
+# to uninstall
+meson uninstall -C builddir</code></pre>
+            <p class="muted">If you need <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code>, see its README (the backend provides the CLI <code>doi2bib3</code> and a Python API).</p>
+          </div>
+        </div>
+
+        <h3>Windows & macOS</h3>
+        <p>Prebuilt installers are available on the Releases page. Download and run the installer for your platform:</p>
+        <p><a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">GitHub Releases</a></p>
+
+        <h3>Run from source</h3>
+        <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
+cd quickbib
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 -m quickbib</code></pre>
+      </section>
+
+      <section id="examples" class="container examples">
+        <h2>Quick examples</h2>
+        <p class="muted">QuickBib supports all of the input types shown below (DOIs, DOI URLs, arXiv IDs/URLs, Journal URLs). The CLI (doi2bib3) can also write output directly to BibTeX files using <code>-o / --out</code>.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>CLI: doi2bib3</h3>
+            <pre><code>doi2bib3 10.1038/nphys1170
+doi2bib3 http://dx.doi.org/10.1038/nphys1170
+doi2bib3 https://arxiv.org/abs/2411.08091
+doi2bib3 arxiv:2411.08091
+doi2bib3 2411.08091
+doi2bib3 https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9
+doi2bib3 2411.08091 -o paper.bib</code></pre>
+          </div>
+          <div class="card">
+            <h3>Programmatic (python)</h3>
+            <pre><code>from doi2bib3 import fetch_bibtex
+bib = fetch_bibtex('https://doi.org/10.1073/pnas.2305943120')
+print(bib)</code></pre>
+            <p class="muted">For details on the programmatic API and options, see the <a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3 README</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq" class="container faq">
+        <h2>FAQ</h2>
+        <details>
+          <summary>What license is QuickBib distributed under?</summary>
+          <p>QuickBib and <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> are distributed under the GNU General Public License v3 (GPL-3.0-only).</p>
+        </details>
+        <details>
+          <summary>Where do I report bugs or request features?</summary>
+          <p>Open an issue on the QuickBib GitHub repository: <a href="https://github.com/archisman-panigrahi/quickbib">github.com/archisman-panigrahi/quickbib</a>.</p>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <strong>QuickBib</strong> — Fetch BibTeX from DOIs and arXiv.
+          <div class="muted">Made with <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> · <a href="https://github.com/archisman-panigrahi/quickbib">Source</a></div>
+        </div>
+        <div class="footer-actions">
+          <a href="https://github.com/archisman-panigrahi/quickbib">GitHub</a>
+          <a href="https://raw.githubusercontent.com/archisman-panigrahi/doi2bib3/main/README.md">doi2bib3 README</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

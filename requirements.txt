@@ -1,3 +1,0 @@
-PyQt6
-# doi2bib3 is not on PyPI; install directly from the GitHub repo at a pinned commit so CI and local builds are reproducible.
-git+https://github.com/archisman-panigrahi/doi2bib3.git@53ace4af3277ad62372039dfba6f3ac7d1454c63#egg=doi2bib3

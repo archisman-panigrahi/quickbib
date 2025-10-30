@@ -1,54 +1,19 @@
-# <img src="assets/icon/scalable/io.github.archisman_panigrahi.quickbib.svg" align="left" width="100" height="100">  <br> QuickBib
+# QuickBib website (docs)
 
-This is a cross platform app that enables you to get the bibtex entry from a DOI number. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend. Written in Python, QuickBib is licensed under GPLv3.
- 
-![screenshot](assets/screenshots/quickbib_arxiv.png)
+This folder contains a small static website for QuickBib. Files:
 
-## How to install?
+- `index.html` — landing page
+- `styles.css`, `script.js` — assets
 
-### GNU/Linux
-<a href="https://repology.org/project/quickbib/versions">
-    <img src="https://repology.org/badge/vertical-allrepos/quickbib.svg" alt="Packaging status" align="right">
-</a>
+Preview locally (simple HTTP server):
 
- - On Arch Linux, you can get it from the AUR
-
-```
-yay -S quickbib
+```bash
+# from the repo root
+python3 -m http.server --directory docs 8000
+# then open http://localhost:8000 in your browser
 ```
 
-- On Ubuntu (24.04+), you can use our [official PPA](https://code.launchpad.net/~apandada1/+archive/ubuntu/quickbib)
-```
-sudo add-apt-repository ppa:apandada1/quickbib
-sudo apt update
-sudo apt install quickbib
-```
+Publish with GitHub Pages:
 
-- Other distros: Install from source
-Install the required dependencies, pyqt6 and [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3). Afterwards, you can use meson to install quickbib.
-```
-meson setup builddir --prefix="$HOME/.local"
-meson install -C builddir
-```
-
-To uninstall, 
-```
-meson uninstall -C builddir
-```
-### Windows and MacOS
-Prebuilt installers are available to download in [GitHub Releases](https://github.com/archisman-panigrahi/QuickBib/releases/latest).
-
-## How to run from source?
-
-First, clone this repo.
-
-```
-git clone https://github.com/archisman-panigrahi/quickbib.git
-cd quickbib
-```
-
-Then, run it with
-
-```
-python3 -m quickbib
-```
+1. Ensure this repository's GitHub Pages is configured to serve from the `gh-pages` branch or the `docs/` folder on the `main` branch.
+2. Commit the `docs/` folder and push. GitHub will serve `index.html` automatically.
