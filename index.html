@@ -32,7 +32,8 @@
             <p class="lede">QuickBib is a cross-platform utility that uses <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> to fetch BibTeX for DOIs and arXiv identifiers. Works as a GUI app and also as a CLI. Perfect for research workflows, manuscripts and automation.</p>
             <p class="cta-row">
               <a class="btn primary" href="#install">Install on GNU/Linux</a>
-              <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">Download for Windows/macOS</a>
+              <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">Download for Windows</a>
+              <a class="btn" href="#install">Run on macOS (from source)</a>
             </p>
           </div>
           <div class="hero-media">
@@ -94,10 +95,13 @@ meson uninstall -C builddir</code></pre>
           </div>
         </div>
 
-        <h3>Windows & macOS</h3>
-        <p>Prebuilt installers are available on the Releases page. Download and run the installer for your platform: <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">GitHub Releases</a></p>
+  <h3>Windows</h3>
+  <p>Prebuilt installers for Windows are available on the Releases page. Download the Windows installer here: <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">GitHub Releases</a></p>
 
-        <h3>Run from source</h3>
+  <h3>macOS</h3>
+  <p>No prebuilt macOS installers: Apple requires developers to pay $99/year so that users can run their apps --- we ship the source instead. Run QuickBib from source or build a macOS app using the packaging scripts if you dare. Pull requests and heroic ideas very welcome 😉.</p>
+
+        <h4>Here is how to run from source</h4>
         <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
 cd quickbib
 python3 -m venv .venv
