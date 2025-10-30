@@ -50,16 +50,16 @@
             <p>Uses <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> strategies (content negotiation, Crossref, arXiv resolution) to return high-quality BibTeX entries.</p>
           </article>
           <article class="card">
-            <h3>arXiv-aware</h3>
-            <p>Paste arXiv IDs, arXiv URLs, or legacy identifiers — QuickBib detects them and resolves the DOI automatically.</p>
+            <h3>arXiv and Journal aware</h3>
+            <p>Paste arXiv IDs, arXiv URLs, or Journal links — QuickBib detects them and resolves the DOI automatically.</p>
           </article>
           <article class="card">
             <h3>GUI + CLI</h3>
             <p>Use the GUI app for quick lookups or integrate into scripts via the CLI and programmatic API.</p>
           </article>
           <article class="card">
-            <h3>Packaged for GNU/Linux, Windows and MacOS</h3>
-            <p>Available via AUR on Arch and a PPA for Ubuntu. Also available as prebuilt installers on Releases for Windows and macOS.</p>
+            <h3>Free software + Cross platform</h3>
+            <p>QuickBib is free and open source software (FOSS) licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener">GPLv3</a>. It runs on GNU/Linux, Windows and macOS — install from packages or download prebuilt releases (see below).</p>
           </article>
         </div>
       </section>
@@ -109,17 +109,16 @@ python3 -m quickbib</code></pre>
 
       <section id="examples" class="container examples">
         <h2>Quick examples</h2>
-        <p class="muted">QuickBib supports all of the input types shown below (DOIs, DOI URLs, arXiv IDs/URLs, Journal URLs). The CLI (doi2bib3) can also write output directly to BibTeX files using <code>-o / --out</code>.</p>
+        <p class="muted">QuickBib accepts common identifiers and links — DOIs, DOI URLs, arXiv IDs/URLs, and journal article URLs. Below are examples of supported inputs and how you might use them programmatically.</p>
         <div class="grid">
           <div class="card">
-            <h3>CLI: doi2bib3</h3>
-            <pre><code>doi2bib3 10.1038/nphys1170
-doi2bib3 http://dx.doi.org/10.1038/nphys1170
-doi2bib3 https://arxiv.org/abs/2411.08091
-doi2bib3 arxiv:2411.08091
-doi2bib3 2411.08091
-doi2bib3 https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9
-doi2bib3 2411.08091 -o paper.bib</code></pre>
+            <h3>Input examples</h3>
+            <pre><code>10.1038/nphys1170
+http://dx.doi.org/10.1038/nphys1170
+https://arxiv.org/abs/2411.08091
+arxiv:2411.08091
+2411.08091
+https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9</code></pre>
           </div>
           <div class="card">
             <h3>Programmatic (python)</h3>
@@ -129,17 +128,23 @@ print(bib)</code></pre>
             <p class="muted">For details on the programmatic API and options, see the <a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3 README</a>.</p>
           </div>
         </div>
+
+        <p class="muted" style="margin-top:12px">There is also a command-line tool <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> that supports the same input types and is useful for scripting and automation.</p>
       </section>
 
       <section id="faq" class="container faq">
         <h2>FAQ</h2>
+        <details>
+          <summary>Is QuickBib free to use? Can I share it with a friend?</summary>
+          <p>Yes! QuickBib is a free software (free as in freedom, as well as gratis) according to the Free Software Foundation's definition: <a href="https://www.fsf.org/about/what-is-free-software" target="_blank" rel="noopener">What is free software? (FSF)</a>. It is free to download, use, redistribute, and modify under the terms of the GPLv3.</p>
+        </details>
         <details>
           <summary>What license is QuickBib distributed under?</summary>
           <p>QuickBib and <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> are distributed under the GNU General Public License v3 (GPL-3.0-only).</p>
         </details>
         <details>
           <summary>Where do I report bugs or request features?</summary>
-          <p>Open an issue on the QuickBib GitHub repository: <a href="https://github.com/archisman-panigrahi/quickbib">github.com/archisman-panigrahi/quickbib</a>.</p>
+          <p>Feature requests, bug reports, and pull requests are welcome — please open an issue or submit a PR on the <a href="https://github.com/archisman-panigrahi/quickbib/issues">QuickBib GitHub repository</a>. Contributions help improve QuickBib for everyone.</p>
         </details>
       </section>
     </main>
@@ -148,11 +153,11 @@ print(bib)</code></pre>
       <div class="container footer-inner">
         <div>
           <strong>QuickBib</strong> — Fetch BibTeX from DOIs and arXiv.
-          <div class="muted">Made with <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> · <a href="https://github.com/archisman-panigrahi/quickbib">Source</a></div>
+          <div class="muted">Backend: <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code>. Authored by <a href="https://github.com/archisman-panigrahi/">Archisman Panigrahi</a></div>
         </div>
         <div class="footer-actions">
-          <a href="https://github.com/archisman-panigrahi/quickbib">GitHub</a>
-          <a href="https://raw.githubusercontent.com/archisman-panigrahi/doi2bib3/main/README.md">doi2bib3 README</a>
+          <a href="https://github.com/archisman-panigrahi/quickbib" aria-label="Made with love on GitHub">Made with <span aria-hidden="true">❤️</span> on GitHub</a>
+          <!-- <a href="https://raw.githubusercontent.com/archisman-panigrahi/doi2bib3/main/README.md">doi2bib3 README</a> -->
         </div>
       </div>
     </footer>

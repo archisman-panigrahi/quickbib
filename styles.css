@@ -14,13 +14,20 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%}
+/* Put the solid base color on the root so it can animate smoothly. */
+html{
+  background-color: var(--bg);
+  transition: background-color 320ms ease;
+}
 body{
   margin:0;
   font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
   color:var(--text);
-  background:linear-gradient(180deg, var(--bg) 0%, #eef3fb 100%);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
+  /* ensure body is above the root background so content displays normally */
+  background: transparent;
+  position:relative;
 }
 .code, code, kbd, samp {
   font-family: var(--terminal-font);
@@ -47,7 +54,9 @@ pre{
 pre code{background:transparent;padding:0;color:inherit}
 
 .container{max-width:var(--max-width);margin:0 auto;padding:24px}
-.site-header{position:sticky;top:0;z-index:80;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.88));backdrop-filter:blur(6px);border-bottom:1px solid rgba(15,23,36,0.06)}
+.site-header{position:sticky;top:0;z-index:80;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.88));backdrop-filter:blur(6px);border-bottom:1px solid rgba(15,23,36,0.06);
+  transition: background-color 320ms ease, background 420ms ease, border-color 320ms ease;
+}
 .header-inner{display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
 .brand-icon{width:44px;height:44px}
@@ -60,10 +69,12 @@ pre code{background:transparent;padding:0;color:inherit}
 .hero{padding:56px 0;position:relative}
 .hero::before{
   content:"";
-  position:absolute;right:-80px;top:-40px;width:420px;height:420px;border-radius:50%;
-  background:radial-gradient(circle at 30% 30%, rgba(124,92,255,0.12), rgba(124,92,255,0.06) 40%, transparent 60%),
-             radial-gradient(circle at 70% 70%, rgba(18,102,241,0.08), transparent 40%);
-  filter:blur(36px);pointer-events:none;z-index:0;
+  position:absolute;right:-60px;top:-30px;width:360px;height:360px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(124,92,255,0.10), rgba(124,92,255,0.05) 40%, transparent 60%),
+             radial-gradient(circle at 70% 70%, rgba(18,102,241,0.06), transparent 40%);
+  /* reduced blur to lower paint cost */
+  filter: blur(18px);
+  pointer-events:none;z-index:0;
 }
 .hero-inner{display:grid;grid-template-columns:1fr 460px;gap:28px;align-items:center;position:relative;z-index:1}
 .hero-copy h1{font-size:36px;margin:0 0 10px}
@@ -92,13 +103,44 @@ pre{background:rgba(10,18,32,0.03);padding:12px;border-radius:8px;overflow:auto;
 
 .faq details{background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,255,0.98));padding:12px;border-radius:10px;margin-bottom:8px;border:1px solid rgba(15,23,36,0.04);box-shadow:var(--subtle-shadow)}
 
-.site-footer{padding:28px 0;border-top:1px solid rgba(15,23,36,0.04);margin-top:40px;background:linear-gradient(180deg, rgba(250,250,255,0.9), rgba(250,250,255,0.95))}
+.site-footer{padding:28px 0;border-top:1px solid rgba(15,23,36,0.04);margin-top:40px;background:linear-gradient(180deg, rgba(250,250,255,0.9), rgba(250,250,255,0.95));
+  transition: background-color 320ms ease, background 420ms ease, border-color 320ms ease;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  body, .site-header, .site-footer{transition: none !important}
+}
+
+/* Subtle gradient overlay to preserve the original look while keeping the base color animatable. */
+body::before{
+  content: "";
+  /* make the overlay part of the document flow (absolute) so it repaints less aggressively during scroll */
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0; /* keep it behind page content */
+  /* lighter, cheaper gradients */
+  background:
+    radial-gradient(560px 420px at 12% 18%, rgba(124,92,255,0.12), transparent 36%),
+    radial-gradient(520px 420px at 88% 82%, rgba(18,102,241,0.10), transparent 34%),
+    radial-gradient(460px 360px at 52% 8%, rgba(255,107,107,0.08), transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,0.01) 0%, rgba(238,243,251,0.06) 100%);
+  /* remove heavy blend/filter effects which can trigger expensive repaints/compositing */
+  background-blend-mode: normal;
+  filter: none;
+}
+
+/* Ensure main content sits above the overlay */
+main, .site-header, .site-footer, .container{position:relative;z-index:1}
 .footer-inner{display:flex;justify-content:space-between;align-items:center}
 .footer-actions a{color:var(--muted);margin-left:12px;text-decoration:none}
 
 @media (max-width:980px){
   .hero-inner{grid-template-columns:1fr}
-  .hero-media{order:-1}
+  /* Ensure the hero text appears above the screenshot on narrow screens */
+  .hero-copy{order:-1}
+  .hero-media{order:0}
   .features .grid,.examples .grid{grid-template-columns:1fr}
   .install-grid{grid-template-columns:1fr}
   .install-card pre{font-size:13px}
