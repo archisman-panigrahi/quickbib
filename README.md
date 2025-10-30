@@ -41,9 +41,10 @@ Prebuilt installers are available to download in [GitHub Releases](https://githu
 
 ### macOS
 
-You can install the app's dependencies with pip and run from source. On macOS there are a few platform-specific caveats (Qt and PyQt6 install paths, notarization when packaging, etc.), so the short instructions below focus on running QuickBib from source for development/testing. **If you have a better idea about how to package the macOS app in a more convenient way (without perpetually paying Apple), please let us know in GitHub Issues**.
+You can install the app's dependencies with pip and run from source (**see below**). On macOS there are a few platform-specific caveats (Qt and PyQt6 install paths, notarization when packaging, etc.), so the short instructions below focus on running QuickBib from source for development/testing. **If you have a better idea about how to package the macOS app in a more convenient way (without perpetually paying Apple), please let us know in GitHub Issues**.
 
-How to run from source on macOS
+
+## How to run from source?
 
 1. Clone the repo and enter it
 
@@ -79,9 +80,6 @@ Or run the convenience script in `bin/quickbib`:
 ```
 ./bin/quickbib
 ```
-
-
-## How to run from source?
 
 First, clone this repo.
 
