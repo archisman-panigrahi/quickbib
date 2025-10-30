@@ -33,7 +33,7 @@
             <p class="cta-row">
               <a class="btn primary" href="#install">Install on GNU/Linux</a>
               <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">Download for Windows</a>
-              <a class="btn primary" href="#install">Run on macOS (from source)</a>
+              <a class="btn primary" href="#run-from-source">Run on macOS (from source)</a>
             </p>
           </div>
           <div class="hero-media">
@@ -99,9 +99,9 @@ meson uninstall -C builddir</code></pre>
   <p>Prebuilt installers for Windows are available on the Releases page. Download the Windows installer here: <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">GitHub Releases</a></p>
 
   <h3>macOS</h3>
-  <p>No prebuilt macOS installers: Apple requires developers to pay $99/year so that users can run their apps --- we ship the source instead. Run QuickBib from source or build a macOS app using the packaging scripts if you dare. Pull requests and heroic ideas very welcome 😉.</p>
+  <p>No prebuilt macOS installers: Apple requires developers to pay $99/year so that users can run their apps --- we ship the source instead. Run QuickBib from source or build a macOS app using the packaging scripts if you dare. Pull requests and heroic ideas very welcome.</p>
 
-        <h4>Here is how to run from source (on macOS as well as GNU/Linux)</h4>
+  <h4 id="run-from-source">Here is how to run from source (on macOS as well as GNU/Linux or Windows)</h4>
         <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
 cd quickbib
 python3 -m venv .venv
