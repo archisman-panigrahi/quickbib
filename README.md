@@ -64,7 +64,6 @@ source .venv/bin/activate
 ```
 python -m pip install --upgrade pip
 pip install -r requirements.txt
-pip install git+https://github.com/archisman-panigrahi/doi2bib3.git
 ```
 
 4. Run QuickBib from source
