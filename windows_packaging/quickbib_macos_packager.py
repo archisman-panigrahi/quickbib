@@ -21,6 +21,7 @@ import sys
 import tempfile
 from pathlib import Path
 import plistlib
+import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 VENV_DIR = ROOT / ".venv_macos_build"
@@ -238,15 +239,73 @@ def create_dmg():
     return dmg_path
 
 
+def create_app_artifact() -> Path:
+    """Copy the built .app bundle into dist_artifacts and create a zip archive.
+
+    This is useful if you want to distribute the .app directly (or as a zip)
+    instead of packaging it inside a DMG.
+    Returns the path to the zip archive if created, else the .app path.
+    """
+    # Find the built .app bundle (same logic as create_dmg)
+    app_bundle = None
+
+    candidate1 = ROOT / "dist" / BUILD_NAME / (BUILD_NAME + ".app")
+    candidate2 = ROOT / "dist" / (BUILD_NAME + ".app")
+    if candidate1.exists():
+        app_bundle = candidate1
+    elif candidate2.exists():
+        app_bundle = candidate2
+    else:
+        apps = list((ROOT / "dist").glob("**/*.app"))
+        if apps:
+            app_bundle = apps[0]
+
+    if app_bundle is None or not app_bundle.exists():
+        raise SystemExit(f"Failed to find built .app bundle in dist/ (checked {candidate1}, {candidate2} and recursive search)")
+
+    out_dir = ROOT / "dist_artifacts"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    target_app = out_dir / app_bundle.name
+    # remove existing target if present
+    if target_app.exists():
+        if target_app.is_dir():
+            shutil.rmtree(target_app)
+        else:
+            target_app.unlink()
+
+    print("Copying app bundle to", target_app)
+    shutil.copytree(app_bundle, target_app, symlinks=True)
+
+    # Make a zip archive containing the .app (easier for distribution)
+    zip_base = out_dir / f"{BUILD_NAME}-macos-arm64"
+    print("Creating zip archive for app at", zip_base.with_suffix('.zip'))
+    # shutil.make_archive will add the .zip suffix automatically
+    shutil.make_archive(str(zip_base), 'zip', root_dir=out_dir, base_dir=target_app.name)
+
+    zip_path = zip_base.with_suffix('.zip')
+    print("App artifact created:", target_app, zip_path)
+    return zip_path
+
+
 def main():
+    parser = argparse.ArgumentParser(description="Build QuickBib .app and optionally a DMG")
+    parser.add_argument('--app-only', action='store_true', help='Do not create a DMG; instead copy the .app to dist_artifacts and create a zip')
+    args = parser.parse_args()
+
     if sys.platform != "darwin":
         print("WARNING: This packager is intended to be run on macOS. You are on:", sys.platform)
 
     ensure_venv()
     install_deps()
     build_app()
-    dmg = create_dmg()
-    print("Packaging complete. Artifact:", dmg)
+
+    if args.app_only:
+        artifact = create_app_artifact()
+        print("Packaging complete. Artifact:", artifact)
+    else:
+        dmg = create_dmg()
+        print("Packaging complete. Artifact:", dmg)
 
 
 if __name__ == "__main__":
