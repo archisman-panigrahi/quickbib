@@ -28,13 +28,5 @@ install_data('assets/icon/128x128/io.github.archisman_panigrahi.quickbib.png',
 install_data('assets/icon/scalable/io.github.archisman_panigrahi.quickbib.svg',
              install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps'))
 
-# Also install other common icon sizes so the package installs a full set
-install_data('assets/icon/16x16/io.github.archisman_panigrahi.quickbib.png',
-             install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '16x16', 'apps'))
-install_data('assets/icon/32x32/io.github.archisman_panigrahi.quickbib.png',
-             install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '32x32', 'apps'))
-install_data('assets/icon/64x64/io.github.archisman_panigrahi.quickbib.png',
-             install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '64x64', 'apps'))
-
 # Install README into the package documentation directory
 install_data('README.md', install_dir: join_paths(get_option('datadir'), 'doc', 'quickbib'))
