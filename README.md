@@ -80,16 +80,3 @@ Or run the convenience script in `bin/quickbib`:
 ```
 ./bin/quickbib
 ```
-
-First, clone this repo.
-
-```
-git clone https://github.com/archisman-panigrahi/quickbib.git
-cd quickbib
-```
-
-Then, run it with
-
-```
-python3 -m quickbib
-```
