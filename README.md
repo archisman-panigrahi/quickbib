@@ -35,8 +35,52 @@ To uninstall,
 ```
 meson uninstall -C builddir
 ```
-### Windows and MacOS
+
+### Windows
 Prebuilt installers are available to download in [GitHub Releases](https://github.com/archisman-panigrahi/QuickBib/releases/latest).
+
+### macOS
+
+You can install the app's dependencies with pip and run from source. On macOS there are a few platform-specific caveats (Qt and PyQt6 install paths, notarization when packaging, etc.), so the short instructions below focus on running QuickBib from source for development/testing. **If you have a better idea about how to package the macOS app in a more convenient way (without perpetually paying Apple), please let us know in GitHub Issues**.
+
+How to run from source on macOS
+
+1. Clone the repo and enter it
+
+```
+git clone https://github.com/archisman-panigrahi/quickbib.git
+cd quickbib
+```
+
+2. Create and activate a virtual environment (recommended)
+
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+3. Upgrade pip and install dependencies
+
+```
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+pip install git+https://github.com/archisman-panigrahi/doi2bib3.git
+```
+
+4. Run QuickBib from source
+
+You can run the package module directly:
+
+```
+python3 -m quickbib
+```
+
+Or run the convenience script in `bin/quickbib`:
+
+```
+./bin/quickbib
+```
+
 
 ## How to run from source?
 
