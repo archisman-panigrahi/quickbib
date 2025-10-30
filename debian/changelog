@@ -1,3 +1,9 @@
+quickbib (0.3.1-1) unstable; urgency=medium
+
+  * fix license path
+
+ -- Archisman Panigrahi <apandada1@gmail.com>  Wed, 29 Oct 2025 20:31:14 -0400
+
 quickbib (0.3-1) unstable; urgency=medium
 
   * use better formatting of output
