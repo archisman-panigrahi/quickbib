@@ -6,6 +6,7 @@ Comment=Create bib entry from DOI and more
 Exec=quickbib %U
 Icon=io.github.archisman_panigrahi.quickbib
 Terminal=false
+StartupWMClass=QuickBib
 Keywords=bib;doi;doi2bib;doi2bib3;latex;tex;
 Categories=Office;Education;Utility;
 StartupNotify=true
