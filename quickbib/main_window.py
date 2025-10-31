@@ -1,4 +1,5 @@
 import threading
+import sys
 from pathlib import Path
 from PyQt6.QtWidgets import (
     QMainWindow,
@@ -21,6 +22,15 @@ from PyQt6.QtCore import QObject, pyqtSignal, Qt
 from .helpers import get_bibtex_for_doi, copy_to_clipboard
 from .about_dialog import AboutDialog
 from .app_info import LICENSE_PATH
+
+# Import Windows-only update checker (not imported on other platforms so it
+# won't be bundled with Linux packages). The module is optional.
+UpdateWorker = None
+if sys.platform == "win32":
+    try:
+        from .windows_update import UpdateWorker
+    except Exception:
+        UpdateWorker = None
 
 
 class FetchWorker(QObject):
@@ -68,6 +78,12 @@ class QuickBibWindow(QMainWindow):
         about_action.triggered.connect(self.show_about)
         help_menu.addAction(about_action)
 
+        # Windows-only update menu entry
+        if UpdateWorker is not None:
+            check_updates_action = QAction("Check for &updates...", self)
+            check_updates_action.triggered.connect(self.check_for_updates)
+            help_menu.addAction(check_updates_action)
+
         # DOI entry
         entry_box = QHBoxLayout()
         vbox.addLayout(entry_box)
@@ -106,10 +122,66 @@ class QuickBibWindow(QMainWindow):
 
         # Keep references to worker/thread so they don't get GC'd
         self._worker_thread = None
+        self._update_worker_thread = None
+        # Run a silent update check on startup only on Windows
+        if UpdateWorker is not None:
+            try:
+                if "--check-updates" in sys.argv or True:
+                    self._start_update_check(silent=True)
+            except Exception:
+                pass
 
     def show_about(self):
         dlg = AboutDialog(self)
         dlg.exec()
+
+    def _start_update_check(self, silent: bool = False):
+        if UpdateWorker is None:
+            return
+        worker = UpdateWorker()
+
+        def thread_target():
+            worker.run()
+
+        worker.finished.connect(lambda available, latest, url, error: self.on_update_check_finished(available, latest, url, error, silent))
+
+        t = threading.Thread(target=thread_target, daemon=True)
+        t.start()
+
+        self._update_worker_thread = (worker, t)
+
+    def check_for_updates(self):
+        # user-initiated check (show dialog)
+        if UpdateWorker is None:
+            QMessageBox.information(self, "Updates not supported", "Update checking is only available on the Windows build.")
+            return
+        self.status.setText("Checking for updates...")
+        self._start_update_check(silent=False)
+
+    def on_update_check_finished(self, available: bool, latest: str, url: str, error: object, silent: bool):
+        self._update_worker_thread = None
+        if error:
+            if not silent:
+                QMessageBox.information(self, "Update check failed", f"Could not check for updates: {error}")
+            self.status.setText("")
+            return
+
+        if available:
+            msg = QMessageBox(self)
+            msg.setWindowTitle("Update available")
+            msg.setText(f"A new QuickBib release is available: {latest}")
+            msg.setInformativeText("Would you like to open the Releases page to download the latest build?")
+            msg.setStandardButtons(QMessageBox.StandardButton.Open | QMessageBox.StandardButton.Cancel)
+            ret = msg.exec()
+            if ret == QMessageBox.StandardButton.Open:
+                import webbrowser
+
+                webbrowser.open(url)
+            self.status.setText("Update available")
+        else:
+            if not silent:
+                QMessageBox.information(self, "Up to date", f"You are running the latest version.")
+            self.status.setText("Up to date")
 
     def fetch_bibtex(self):
         doi = self.doi_entry.text().strip()
