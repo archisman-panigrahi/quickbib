@@ -19,7 +19,7 @@ class AboutDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("About QuickBib")
-        self.resize(600, 360)
+        self.resize(600, 370)
 
         # Main layout
         vbox = QVBoxLayout()
@@ -88,6 +88,7 @@ class AboutDialog(QDialog):
         as its backend for DOI to BibTeX conversion.</p>
         <p>
           <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a>
+          <b>Source Code:</b> <a href="{REPO_URL}">{REPO_URL}</a>
         </p>
         <p><b>License:</b> Released under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html#license-text">GNU General Public License Version 3</a>. Full text available on the <i>License</i> tab.</p>
         """
@@ -96,12 +97,14 @@ class AboutDialog(QDialog):
         tabs.addTab(about_text, "About")
 
         authors_text = QTextBrowser()
-        authors_html = """
+        authors_html = f"""
         <h3>Authors & Contributors</h3>
         <ul>
           <li><a href="https://github.com/archisman-panigrahi/">Archisman Panigrahi</a></li>
         </ul>
-        <p>Bug reports and pull requests are welcome on the <a href="{HOMEPAGE}">project's GitHub page</a>.</p>
+        <p> This project was inspired by <a href="https://github.com/bibcure/doi2bib">doi2bib</a>, whose development unfortunately stopped.</p>
+        <p> This project would not have been possible without the help from GitHub copilot.</p>
+        <p>Bug reports and pull requests are welcome on the <a href="{REPO_URL}">project's GitHub page</a>.</p>
         """
         authors_text.setHtml(authors_html)
         authors_text.setOpenExternalLinks(True)
