@@ -1,8 +1,8 @@
 name: Build macOS (Apple Silicon) DMG
 
 on:
-  release:
-    types: [published]
+  # release:
+  #   types: [published]
   workflow_dispatch:
 
 permissions:
