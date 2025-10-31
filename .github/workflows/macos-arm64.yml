@@ -54,8 +54,3 @@ jobs:
           files: dist_artifacts/*.dmg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Optional: a hosted-runner variant is possible but may produce an Intel
-  # build. If you must use GitHub-hosted runners, consider building a
-  # universal2 binary on an Apple Silicon runner or building on a macOS
-  # machine and uploading artifacts to GitHub Releases.
