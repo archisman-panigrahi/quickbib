@@ -1,3 +1,9 @@
+quickbib (0.3.2-1) unstable; urgency=medium
+
+  * fix about dialog
+
+ -- Archisman Panigrahi <apandada1@gmail.com>  Fri, 31 Oct 2025 00:17:23 -0400
+
 quickbib (0.3.1-1) unstable; urgency=medium
 
   * fix license path
