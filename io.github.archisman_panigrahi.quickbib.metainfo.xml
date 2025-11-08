@@ -6,7 +6,7 @@
   <name>QuickBib</name>
   <summary>QuickBib: DOI → BibTeX</summary>
   <description>
-   QuickBib is a cross platform app that enables you to get the bibtex entry from a DOI number.
+   QuickBib is a cross platform app that enables you to get the bibtex entry from a DOI number/arXiv ID.
    It uses doi2bib3 as its backend.
   </description>
   <url type="homepage">https://archisman-panigrahi.github.io/QuickBib/</url>
