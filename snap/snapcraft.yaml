@@ -1,0 +1,70 @@
+name: quickbib
+version: '0.3.2'
+base: core24
+summary: "QuickBib: DOI → BibTeX"
+description: |
+    QuickBib is a cross platform app that enables you to get the bibtex entry from a DOI number.
+    It uses doi2bib3 as its backend.
+grade: stable
+confinement: strict
+# platforms omitted: allow Snapcraft to infer default platform for local packing
+
+parts:
+  quickbib:
+    # Use dump plugin to copy the Meson-style installed layout directly into the
+    # snap. This project installs its data under share/quickbib via Meson rather
+    # than being a standard python sdist/pyproject project, so using the python
+    # plugin fails on systems without packaging metadata. The dump plugin simply
+    # copies the source tree and we then place files into the expected locations.
+    plugin: dump
+    source: ..
+    # keep the application desktop file, metainfo and assets in the snap
+    organize:
+      "io.github.archisman_panigrahi.quickbib.desktop": "usr/share/applications/io.github.archisman_panigrahi.quickbib.desktop"
+      "io.github.archisman_panigrahi.quickbib.metainfo.xml": "usr/share/metainfo/io.github.archisman_panigrahi.quickbib.metainfo.xml"
+      "assets/": "usr/share/quickbib/assets/"
+  # Build and runtime system packages needed to build Python extensions and
+  # provide system libraries. This project uses PyQt6 (see requirements.txt)
+  # so we stage Qt/graphics-related system libs rather than GTK/GObject.
+    build-packages:
+      - python3-pip
+      - python3-setuptools
+      - python3-dev
+      - pkg-config
+
+    stage-packages:
+      - python3
+
+    override-build: |
+      snapcraftctl build
+      # Install the launcher into /usr/bin
+      install -D -m755 $SNAPCRAFT_PART_SRC/bin/quickbib $SNAPCRAFT_PART_INSTALL/usr/bin/quickbib || true
+      # Install the quickbib python package dir under share/quickbib so the
+      # launcher can find the installed package like a Meson-installed tree.
+      if [ -d "$SNAPCRAFT_PART_SRC/quickbib" ]; then
+        mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/quickbib
+        cp -a $SNAPCRAFT_PART_SRC/quickbib $SNAPCRAFT_PART_INSTALL/usr/share/quickbib/
+      fi
+
+      # Install Python pip requirements into the part so they're available at
+      # runtime. We install into $SNAPCRAFT_PART_INSTALL/usr so packages end up
+      # under $SNAP/usr/lib/python3/... and can be found by the Python runtime
+      # when PYTHONPATH is set appropriately.
+      if [ -f "$SNAPCRAFT_PART_SRC/../requirements.txt" ]; then
+        python3 -m pip install -r $SNAPCRAFT_PART_SRC/../requirements.txt --prefix=$SNAPCRAFT_PART_INSTALL/usr --no-cache-dir || true
+      fi
+
+apps:
+  quickbib:
+    # Ensure the Python runtime inside the snap finds the pip-installed
+    # dependencies that were installed into $SNAP/usr by override-build.
+    command: $SNAP/usr/bin/quickbib
+    environment:
+      PYTHONPATH: $SNAP/usr/lib/python3/site-packages:$SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
+    desktop: usr/share/applications/io.github.archisman_panigrahi.quickbib.desktop
+    plugs:
+      - network
+
+# parse-info: (disabled)  # AppStream metainfo parsing not required for local build
+#  - usr/share/metainfo/io.github.archisman_panigrahi.quickbib.metainfo.xml
+
