@@ -5,9 +5,9 @@
   <project_license>GPL-3.0-only</project_license>
   <name>QuickBib</name>
   <summary>QuickBib: DOI → BibTeX</summary>
-  <description>
-   QuickBib is a cross platform app that enables you to get the bibtex entry from a DOI number/arXiv ID.
-   It uses doi2bib3 as its backend.
+  <description type="long">
+    <p>QuickBib helps you quickly generate BibTeX bibliographic entries from identifiers such as DOIs and arXiv IDs. Enter an identifier and QuickBib will fetch the metadata and produce a ready-to-use BibTeX entry which you can copy to your clipboard and use in your LaTeX documents.</p>
+    <p>Features include: fast DOI/arXiv lookup and copy-to-clipboard.</p>
   </description>
   <url type="homepage">https://archisman-panigrahi.github.io/QuickBib/</url>
   <url type="bugtracker">https://github.com/archisman-panigrahi/QuickBib/issues</url>
@@ -25,10 +25,17 @@
     <color type="primary" scheme_preference="light">#ffeeaa</color>
     <color type="primary" scheme_preference="dark">#17638e</color>
   </branding>
-  <release>
-    <version>0.3.2</version>
-  </release>
+  <releases>
+    <release version="0.3.2" date="2025-11-08">
+      <description>
+        <p>Fix about dialog</p>
+      </description>
+    </release>
+  </releases>
+
   <provides>
     <binary>quickbib</binary>
   </provides>
+  <launchable type="desktop-id">io.github.archisman_panigrahi.quickbib.desktop</launchable>
+  <content_rating type="oars-1.1"/>
 </component>
