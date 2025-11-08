@@ -87,6 +87,7 @@
     "--share=network",
     "--socket=wayland",
     "--socket=fallback-x11",
+    "--share=ipc",
     "--device=dri"
   ]
 }
