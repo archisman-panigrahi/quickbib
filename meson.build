@@ -21,13 +21,13 @@ install_data('io.github.archisman_panigrahi.QuickBib.metainfo.xml',
              install_dir: join_paths(get_option('datadir'), 'metainfo'))
 
 # Icons (hicolor theme layout)
-#install_data('assets/icon/16x16/io.github.archisman_panigrahi.quickbib.png',
+#install_data('assets/icon/16x16/io.github.archisman_panigrahi.QuickBib.png',
 #             install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '16x16', 'apps'))
-#install_data('assets/icon/32x32/io.github.archisman_panigrahi.quickbib.png',
+#install_data('assets/icon/32x32/io.github.archisman_panigrahi.QuickBib.png',
 #             install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '32x32', 'apps'))
-#install_data('assets/icon/64x64/io.github.archisman_panigrahi.quickbib.png',
+#install_data('assets/icon/64x64/io.github.archisman_panigrahi.QuickBib.png',
 #             install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '64x64', 'apps'))
-install_data('assets/icon/128x128/io.github.archisman_panigrahi.quickbib.png',
+install_data('assets/icon/128x128/io.github.archisman_panigrahi.QuickBib.png',
              install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '128x128', 'apps'))
 install_data('assets/icon/scalable/io.github.archisman_panigrahi.QuickBib.svg',
              install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps'))
