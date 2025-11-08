@@ -1,4 +1,4 @@
-project('quickbib', 'c', version : '0.3')
+project('quickbib', 'c', version : '0.3.2')
 
 # Install python source files (copied as-is)
 # Install the top-level entrypoint script that bootstraps the app (keeps
@@ -15,6 +15,10 @@ install_data('bin/quickbib', install_dir: get_option('bindir'), install_mode: 'r
 
 # Desktop file
 install_data('io.github.archisman_panigrahi.quickbib.desktop', install_dir: join_paths(get_option('datadir'), 'applications'))
+
+# AppStream / metainfo file
+install_data('io.github.archisman_panigrahi.quickbib.metainfo.xml',
+             install_dir: join_paths(get_option('datadir'), 'metainfo'))
 
 # Icons (hicolor theme layout)
 #install_data('assets/icon/16x16/io.github.archisman_panigrahi.quickbib.png',
