@@ -6,9 +6,8 @@
   <name>QuickBib</name>
   <summary>QuickBib: DOI → BibTeX</summary>
   <description>
-    QuickBib fetches BibTeX entries from DOIs, arXiv IDs and URLs. It provides a small
-    Qt-based GUI to fetch and copy BibTeX entries for use in LaTeX and reference
-    managers.
+   QuickBib is a cross platform app that enables you to get the bibtex entry from a DOI number.
+   It uses doi2bib3 as its backend.
   </description>
   <url type="homepage">https://archisman-panigrahi.github.io/QuickBib/</url>
   <url type="bugtracker">https://github.com/archisman-panigrahi/QuickBib/issues</url>
