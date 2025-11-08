@@ -17,7 +17,15 @@
   </developer>
     <screenshots>
     <screenshot type="default">
-      <caption>Main window</caption>
+      <caption>BibTeX obtained from DOI link</caption>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/a55bcb87f3a81213772fcde6e0c80595d4f8f166/assets/screenshots/quickbib_doi.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>BibTeX obtained from APS journal link</caption>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/a55bcb87f3a81213772fcde6e0c80595d4f8f166/assets/screenshots/quickbib_aps.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>BibTeX obtained from arXiv link</caption>
       <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/03b52faa835cf83272791847a80e02089a72daf8/assets/screenshots/quickbib_arxiv.png</image>
     </screenshot>
   </screenshots>
