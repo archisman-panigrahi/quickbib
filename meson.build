@@ -14,10 +14,10 @@ install_data('LICENSE', install_dir: join_paths(get_option('datadir'), 'quickbib
 install_data('bin/quickbib', install_dir: get_option('bindir'), install_mode: 'rwxr-xr-x')
 
 # Desktop file
-install_data('io.github.archisman_panigrahi.quickbib.desktop', install_dir: join_paths(get_option('datadir'), 'applications'))
+install_data('io.github.archisman_panigrahi.QuickBib.desktop', install_dir: join_paths(get_option('datadir'), 'applications'))
 
 # AppStream / metainfo file
-install_data('io.github.archisman_panigrahi.quickbib.metainfo.xml',
+install_data('io.github.archisman_panigrahi.QuickBib.metainfo.xml',
              install_dir: join_paths(get_option('datadir'), 'metainfo'))
 
 # Icons (hicolor theme layout)
@@ -29,7 +29,7 @@ install_data('io.github.archisman_panigrahi.quickbib.metainfo.xml',
 #             install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '64x64', 'apps'))
 install_data('assets/icon/128x128/io.github.archisman_panigrahi.quickbib.png',
              install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '128x128', 'apps'))
-install_data('assets/icon/scalable/io.github.archisman_panigrahi.quickbib.svg',
+install_data('assets/icon/scalable/io.github.archisman_panigrahi.QuickBib.svg',
              install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps'))
 
 # Install README into the package documentation directory

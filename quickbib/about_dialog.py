@@ -36,11 +36,11 @@ class AboutDialog(QDialog):
         icon_label.setFixedSize(64, 64)
         icon_label.setScaledContents(True)
         try:
-            theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.quickbib")
+            theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.QuickBib")
             if not theme_icon.isNull():
                 pix = theme_icon.pixmap(64, 64)
             else:
-                asset_path = Path(__file__).parent.parent / "assets" / "icon" / "64x64" / "io.github.archisman_panigrahi.quickbib.png"
+                asset_path = Path(__file__).parent.parent / "assets" / "icon" / "64x64" / "io.github.archisman_panigrahi.QuickBib.png"
                 if asset_path.exists():
                     pix = QPixmap(str(asset_path))
                     if pix.isNull():

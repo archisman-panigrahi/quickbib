@@ -35,12 +35,12 @@ def main(argv):
         # Be conservative: if anything fails, continue without crashing.
         pass
     try:
-        theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.quickbib")
+        theme_icon = QIcon.fromTheme("io.github.archisman_panigrahi.QuickBib")
         if not theme_icon.isNull():
             app.setWindowIcon(theme_icon)
         else:
             # assets are installed under share/quickbib/assets
-            asset_path = Path(__file__).parent.parent / "assets" / "icon" / "64x64" / "io.github.archisman_panigrahi.quickbib.png"
+            asset_path = Path(__file__).parent.parent / "assets" / "icon" / "64x64" / "io.github.archisman_panigrahi.QuickBib.png"
             if asset_path.exists():
                 app.setWindowIcon(QIcon(str(asset_path)))
     except Exception:
