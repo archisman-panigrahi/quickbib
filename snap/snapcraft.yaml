@@ -20,8 +20,8 @@ parts:
     source: ..
     # keep the application desktop file, metainfo and assets in the snap
     organize:
-      "io.github.archisman_panigrahi.quickbib.desktop": "usr/share/applications/io.github.archisman_panigrahi.quickbib.desktop"
-      "io.github.archisman_panigrahi.quickbib.metainfo.xml": "usr/share/metainfo/io.github.archisman_panigrahi.quickbib.metainfo.xml"
+      "io.github.archisman_panigrahi.QuickBib.desktop": "usr/share/applications/io.github.archisman_panigrahi.QuickBib.desktop"
+      "io.github.archisman_panigrahi.QuickBib.metainfo.xml": "usr/share/metainfo/io.github.archisman_panigrahi.QuickBib.metainfo.xml"
       "assets/": "usr/share/quickbib/assets/"
   # Build and runtime system packages needed to build Python extensions and
   # provide system libraries. This project uses PyQt6 (see requirements.txt)
@@ -61,7 +61,7 @@ apps:
     command: $SNAP/usr/bin/quickbib
     environment:
       PYTHONPATH: $SNAP/usr/lib/python3/site-packages:$SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
-    desktop: usr/share/applications/io.github.archisman_panigrahi.quickbib.desktop
+    desktop: usr/share/applications/io.github.archisman_panigrahi.QuickBib.desktop
     plugs:
       - network
 
