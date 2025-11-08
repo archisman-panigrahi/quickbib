@@ -11,7 +11,20 @@
   </description>
   <url type="homepage">https://archisman-panigrahi.github.io/QuickBib/</url>
   <url type="bugtracker">https://github.com/archisman-panigrahi/QuickBib/issues</url>
-  <developer_name>archisman-panigrahi</developer_name>
+  <url type="contribute">https://github.com/archisman-panigrahi/QuickBib</url>
+  <developer id="io.github.archisman-panigrahi">
+    <name>Archisman Panigrahi</name>
+  </developer>
+    <screenshots>
+    <screenshot type="default">
+      <caption>Main window</caption>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/03b52faa835cf83272791847a80e02089a72daf8/assets/screenshots/quickbib_arxiv.png</image>
+    </screenshot>
+  </screenshots>
+  <branding>
+    <color type="primary" scheme_preference="light">#ffeeaa</color>
+    <color type="primary" scheme_preference="dark">#17638e</color>
+  </branding>
   <release>
     <version>0.3.2</version>
   </release>
