@@ -9,5 +9,5 @@ Rules-Requires-Root: no
 Package: quickbib
 Architecture: all
 Depends: ${misc:Depends}, ${python3:Depends}, python3-pyqt6, python3-doi2bib3
-Description: A simple DOI to bibliography converter
+Description: Get BibTeX from a DOI — fast
  QuickBib is a simple application that generates bibliography entries from DOIs, journal URLs and arXiv IDs.
