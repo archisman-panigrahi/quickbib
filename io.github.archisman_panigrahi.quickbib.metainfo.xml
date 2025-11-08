@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>io.github.archisman_panigrahi.quickbib</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <name>QuickBib</name>
+  <summary>QuickBib: DOI → BibTeX</summary>
+  <description>
+    QuickBib fetches BibTeX entries from DOIs, arXiv IDs and URLs. It provides a small
+    Qt-based GUI to fetch and copy BibTeX entries for use in LaTeX and reference
+    managers.
+  </description>
+  <url type="homepage">https://archisman-panigrahi.github.io/QuickBib/</url>
+  <url type="bugtracker">https://github.com/archisman-panigrahi/QuickBib/issues</url>
+  <developer_name>archisman-panigrahi</developer_name>
+  <release>
+    <version>0.3.2</version>
+  </release>
+  <provides>
+    <binary>quickbib</binary>
+  </provides>
+</component>
