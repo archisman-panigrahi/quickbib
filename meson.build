@@ -14,7 +14,7 @@ install_data('LICENSE', install_dir: join_paths(get_option('datadir'), 'quickbib
 install_data('bin/quickbib', install_dir: get_option('bindir'), install_mode: 'rwxr-xr-x')
 
 # Desktop file
-install_data('quickbib.desktop', install_dir: join_paths(get_option('datadir'), 'applications'))
+install_data('io.github.archisman_panigrahi.quickbib.desktop', install_dir: join_paths(get_option('datadir'), 'applications'))
 
 # Icons (hicolor theme layout)
 #install_data('assets/icon/16x16/io.github.archisman_panigrahi.quickbib.png',
