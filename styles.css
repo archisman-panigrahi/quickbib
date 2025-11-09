@@ -3,6 +3,9 @@
   --accent:#1266f1; /* lively blue */
   --accent-2:#ff6b6b; /* coral */
   --accent-3:#7c5cff; /* purple */
+  --accent-4:#06d6a0; /* mint */
+  --accent-5:#ffd166; /* warm yellow */
+  --gradient-hero: linear-gradient(90deg, rgba(124,92,255,0.10), rgba(18,102,241,0.08), rgba(255,107,107,0.06));
   --muted:#43505a;  /* softer muted text */
   --bg:#f3f5f7;     /* page background - slightly gray */
   --surface:#ffffff; /* card/surface color */
@@ -59,12 +62,17 @@ pre code{background:transparent;padding:0;color:inherit}
 }
 .header-inner{display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
-.brand-icon{width:44px;height:44px}
+.brand-icon{width:48px;height:48px;border-radius:10px;display:block;object-fit:contain;
+  /* subtle colorful backing that shows through transparent SVGs */
+  background: radial-gradient(circle at 30% 30%, rgba(124,92,255,0.14), transparent 40%),
+              linear-gradient(180deg, rgba(18,102,241,0.06), rgba(6,214,160,0.04));
+  padding:6px;box-shadow: 0 6px 18px rgba(18,32,54,0.06);transition:transform 240ms ease, box-shadow 240ms ease}
+.brand:hover .brand-icon{transform:translateY(-3px);box-shadow:0 12px 30px rgba(18,32,54,0.09)}
 .brand-text{font-weight:700;font-size:18px}
 #nav-toggle{display:none;background:none;border:0;color:var(--text);font-size:20px}
 .nav{display:flex;gap:18px}
-.nav a{color:var(--muted);text-decoration:none;padding:8px;border-radius:8px}
-.nav a:hover{color:var(--accent)}
+.nav a{color:var(--muted);text-decoration:none;padding:8px;border-radius:10px;transition:background-color 220ms ease,color 220ms ease,transform 180ms ease}
+.nav a:hover{color:white;background:linear-gradient(90deg,var(--accent),var(--accent-3));transform:translateY(-2px)}
 
 .hero{padding:56px 0;position:relative}
 .hero::before{
@@ -77,11 +85,20 @@ pre code{background:transparent;padding:0;color:inherit}
   pointer-events:none;z-index:0;
 }
 .hero-inner{display:grid;grid-template-columns:1fr 460px;gap:28px;align-items:center;position:relative;z-index:1}
-.hero-copy h1{font-size:36px;margin:0 0 10px}
+.hero-copy h1{font-size:36px;margin:0 0 10px;line-height:1.05}
+/* colorful, efficient gradient text for the hero headline (cheap: single paint) */
+.hero-copy h1{
+  background: linear-gradient(90deg,var(--accent),var(--accent-3),var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .lede{color:var(--muted);font-size:16px;max-width:60ch}
 .cta-row{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.btn{display:inline-block;padding:10px 16px;border-radius:12px;background:transparent;border:1px solid rgba(15,23,36,0.06);color:inherit;text-decoration:none}
-.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-3));color:white;border:none}
+.btn{display:inline-block;padding:10px 16px;border-radius:12px;background:transparent;border:1px solid rgba(15,23,36,0.06);color:inherit;text-decoration:none;transition:transform 180ms ease,box-shadow 220ms ease}
+.btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-3));color:white;border:none;box-shadow:0 8px 20px rgba(18,102,241,0.12)}
+.btn.primary:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(18,102,241,0.16)}
+.btn.ghost{background:transparent;border:1px solid rgba(15,23,36,0.06);color:var(--text)}
 .btn.ghost{background:transparent;border:1px solid rgba(15,23,36,0.06);color:var(--text)}
 .hero-media img{width:100%;border-radius:12px;box-shadow:var(--subtle-shadow)}
 
@@ -90,7 +107,11 @@ pre code{background:transparent;padding:0;color:inherit}
 .card,.card h3{margin:0}
 .card,.card p,.card pre{color:var(--text)}
 .card{background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.98));padding:18px;border-radius:12px;border:1px solid rgba(15,23,36,0.04);box-shadow:var(--subtle-shadow);position:relative;overflow:visible}
+/* Per-card accent color to add variety without images */
 .card::after{content:"";position:absolute;left:0;top:0;height:6px;width:64px;border-top-left-radius:12px;border-top-right-radius:6px;background:linear-gradient(90deg,var(--accent),var(--accent-3))}
+.card:nth-child(2n)::after{background:linear-gradient(90deg,var(--accent-2),var(--accent-5))}
+.card:nth-child(3n)::after{background:linear-gradient(90deg,var(--accent-4),var(--accent-3))}
+.card:nth-child(4n)::after{background:linear-gradient(90deg,var(--accent-5),var(--accent))}
 .card h3{font-size:18px;margin-bottom:6px}
 
 .install{padding:28px 0}
