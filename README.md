@@ -28,7 +28,7 @@ sudo apt install quickbib
 <a href='https://flathub.org/en/apps/io.github.archisman_panigrahi.QuickBib'>
     <img height='55' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
 </a>
-<a href="[https://snapcraft.io/typhoon](https://snapcraft.io/quickbib)">
+<a href="https://snapcraft.io/quickbib">
     <img height='55' alt="Get it from the Snap Store" src=https://snapcraft.io/en/dark/install.svg />
 </a>
 
