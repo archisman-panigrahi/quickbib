@@ -220,10 +220,30 @@ main{position:relative;z-index:1;padding-top:88px}
   .install-card pre{font-size:13px}
 }
 @media (max-width:640px){
-  #nav-toggle{display:block}
-  .nav{position:absolute;right:18px;top:72px;background:rgba(255,255,255,0.98);padding:12px;border-radius:10px;flex-direction:column;display:none;box-shadow:var(--subtle-shadow)}
-  .nav a{padding:8px 12px}
+  /* On narrow screens we don't use the hamburger. Show the navigation
+     inline on the header and hide the brand (icon + text) to save space. */
+  #nav-toggle{display:none}
   .brand-text{display:none}
+  .brand-icon{display:none}
+
+  /* Make the nav appear inline in the header bar. Override the absolute
+     positioning used for the hamburger menu layout and remove the popup
+     styling. Use !important on display to ensure it overrides earlier rules. */
+  .nav{
+    position:static;
+    display:flex !important;
+    flex-direction:row;
+    gap:12px;
+    background:transparent;
+    padding:0;
+    box-shadow:none;
+    right:auto; top:auto;
+    justify-content:center;
+    align-items:center;
+  }
+  /* Center the header contents so the nav sits in the middle of the bar */
+  .header-inner{justify-content:center}
+  .nav a{padding:6px 8px}
   .container{padding:16px}
 }
 
