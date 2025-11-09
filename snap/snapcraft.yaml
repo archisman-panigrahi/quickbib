@@ -1,70 +1,72 @@
 name: quickbib
 version: '0.3.2'
-base: core24
-summary: "QuickBib: DOI → BibTeX"
+summary: "Get BibTeX from a DOI — fast"
 description: |
-    QuickBib is a cross platform app that enables you to get the bibtex entry from a DOI number.
-    It uses doi2bib3 as its backend.
+  QuickBib is a small cross-platform desktop app that retrieves the BibTeX entry
+  for a publication from its DOI (Digital Object Identifier). It supports DOIs,
+  arXiv IDs and many journal URLs and uses the doi2bib3 library as its backend
+  to fetch and format BibTeX entries.
+
+  This snap installs the application via Meson (native installer) and stages
+  Python runtime dependencies using the Snapcraft Python plugin so that Python
+  packages from `requirements.txt` are installed cleanly into the snap.
+
 grade: stable
 confinement: strict
-# platforms omitted: allow Snapcraft to infer default platform for local packing
-
-parts:
-  quickbib:
-    # Use dump plugin to copy the Meson-style installed layout directly into the
-    # snap. This project installs its data under share/quickbib via Meson rather
-    # than being a standard python sdist/pyproject project, so using the python
-    # plugin fails on systems without packaging metadata. The dump plugin simply
-    # copies the source tree and we then place files into the expected locations.
-    plugin: dump
-    source: ..
-    # keep the application desktop file, metainfo and assets in the snap
-    organize:
-      "io.github.archisman_panigrahi.QuickBib.desktop": "usr/share/applications/io.github.archisman_panigrahi.QuickBib.desktop"
-      "io.github.archisman_panigrahi.QuickBib.metainfo.xml": "usr/share/metainfo/io.github.archisman_panigrahi.QuickBib.metainfo.xml"
-      "assets/": "usr/share/quickbib/assets/"
-  # Build and runtime system packages needed to build Python extensions and
-  # provide system libraries. This project uses PyQt6 (see requirements.txt)
-  # so we stage Qt/graphics-related system libs rather than GTK/GObject.
-    build-packages:
-      - python3-pip
-      - python3-setuptools
-      - python3-dev
-      - pkg-config
-
-    stage-packages:
-      - python3
-
-    override-build: |
-      snapcraftctl build
-      # Install the launcher into /usr/bin
-      install -D -m755 $SNAPCRAFT_PART_SRC/bin/quickbib $SNAPCRAFT_PART_INSTALL/usr/bin/quickbib || true
-      # Install the quickbib python package dir under share/quickbib so the
-      # launcher can find the installed package like a Meson-installed tree.
-      if [ -d "$SNAPCRAFT_PART_SRC/quickbib" ]; then
-        mkdir -p $SNAPCRAFT_PART_INSTALL/usr/share/quickbib
-        cp -a $SNAPCRAFT_PART_SRC/quickbib $SNAPCRAFT_PART_INSTALL/usr/share/quickbib/
-      fi
-
-      # Install Python pip requirements into the part so they're available at
-      # runtime. We install into $SNAPCRAFT_PART_INSTALL/usr so packages end up
-      # under $SNAP/usr/lib/python3/... and can be found by the Python runtime
-      # when PYTHONPATH is set appropriately.
-      if [ -f "$SNAPCRAFT_PART_SRC/../requirements.txt" ]; then
-        python3 -m pip install -r $SNAPCRAFT_PART_SRC/../requirements.txt --prefix=$SNAPCRAFT_PART_INSTALL/usr --no-cache-dir || true
-      fi
+base: core24
+compression: lzo
+title: QuickBib
+contact: https://github.com/archisman-panigrahi/QuickBib
+license: GPL-3.0-only
+website: https://archisman-panigrahi.github.io/QuickBib
+source-code: https://github.com/archisman-panigrahi/QuickBib
+issues: https://github.com/archisman-panigrahi/QuickBib/issues
 
 apps:
   quickbib:
-    # Ensure the Python runtime inside the snap finds the pip-installed
-    # dependencies that were installed into $SNAP/usr by override-build.
     command: $SNAP/usr/bin/quickbib
     environment:
       PYTHONPATH: $SNAP/usr/lib/python3/site-packages:$SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
-    desktop: usr/share/applications/io.github.archisman_panigrahi.QuickBib.desktop
+      QT_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins
+      QT_QPA_PLATFORM_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins/platforms
+      XDG_DATA_DIRS: $SNAP/usr/share:${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
     plugs:
       - network
 
-# parse-info: (disabled)  # AppStream metainfo parsing not required for local build
-#  - usr/share/metainfo/io.github.archisman_panigrahi.quickbib.metainfo.xml
+parts:
+  quickbib:
+    plugin: meson
+    source: ..
+    build-packages:
+      - python3-dev
+      - pkg-config
+      - build-essential
+      - meson
+      - ninja-build
+    stage-packages:
+      - python3
+      - python3-pyqt6
+    # Debug helper: ensure meson.build is at the top of the part source.
+    # Some managed build setups copy the repository under a 'project' subdir
+    # inside $SNAPCRAFT_PART_SRC; if so, move files up so Meson sees
+    # meson.build at $SNAPCRAFT_PART_SRC.
+    override-pull: |
+      # run the default pull step
+      snapcraftctl pull
+      echo "---- listing part src after pull (before fix) ----"
+      ls -la "$SNAPCRAFT_PART_SRC" || true
+      if [ -d "$SNAPCRAFT_PART_SRC/project" ]; then
+        echo "Found nested project directory; moving contents up..."
+        sh -c 'cp -a "$SNAPCRAFT_PART_SRC/project/." "$SNAPCRAFT_PART_SRC"'
+        rm -rf "$SNAPCRAFT_PART_SRC/project"
+      fi
+      echo "---- listing part src after fix ----"
+      ls -la "$SNAPCRAFT_PART_SRC" || true
 
+  python-deps:
+    plugin: python
+    source: ..
+    python-packages:
+      - doi2bib3
+    stage-packages:
+      - python3
