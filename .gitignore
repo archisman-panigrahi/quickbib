@@ -157,3 +157,5 @@ snap/prime
 flatpak/build-dir
 flatpak/.flatpak-builder
 flatpak/repo
+*.snap
+*.exe

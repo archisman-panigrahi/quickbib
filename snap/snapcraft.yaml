@@ -12,7 +12,6 @@ license: GPL-3.0-only
 website: https://archisman-panigrahi.github.io/QuickBib/
 source-code: https://github.com/archisman-panigrahi/QuickBib
 issues: https://github.com/archisman-panigrahi/QuickBib/issues
-donation: https://github.com/sponsors/archisman-panigrahi
 grade: stable
 confinement: strict
 base: core24
@@ -21,14 +20,16 @@ compression: lzo
 
 apps:
   quickbib:
-    command: $SNAP/usr/bin/quickbib
+    command: usr/bin/quickbib
     environment:
       PYTHONPATH: $SNAP/usr/lib/python3/site-packages:$SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
-      # QT_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins
-      # QT_QPA_PLATFORM_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins/platforms
+      QT_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins
+      QT_QPA_PLATFORM_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins/platforms
       # XDG_DATA_DIRS: $SNAP/usr/share:${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
     plugs:
       - network
+      - x11
+      - wayland
 
 parts:
   quickbib:
@@ -79,3 +80,11 @@ parts:
       - doi2bib3
     stage-packages:
       - python3
+
+lint:
+  ignore:
+    - classic
+    - library:
+      - usr/lib/**/lib*.so*
+    - metadata:
+      - donation
