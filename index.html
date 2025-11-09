@@ -71,18 +71,32 @@
         <p class="muted">Choose the option that fits your platform.</p>
 
         <h3>GNU/Linux</h3>
-        <div class="install-grid">
-          <div class="install-card">
+        <p class="muted">You can install QuickBib from Flathub or the Snap Store on any distro:</p>
+        <p class="badges">
+          <a href="https://flathub.org/en/apps/io.github.archisman_panigrahi.QuickBib" target="_blank" rel="noopener">
+            <img height="70" alt="Get it on Flathub" src="https://flathub.org/api/badge?locale=en" style="vertical-align:middle; margin-right:8px" />
+          </a>
+          <a href="https://snapcraft.io/quickbib" target="_blank" rel="noopener">
+            <img height="70" alt="Get it from the Snap Store" src="https://snapcraft.io/en/dark/install.svg" style="vertical-align:middle" />
+          </a>
+        </p>
+
+        <div class="grid">
+          You can also install QuickBib using your distro's package manager:
+          <br><br>
+          <div class="card">
             <h4>Ubuntu 24.04+ (<a href="https://launchpad.net/~apandada1/+archive/ubuntu/quickbib" target="_blank" rel="noopener">Official PPA</a>)</h4>
+            <p>Run these commands one by one in a terminal to add the PPA and install QuickBib:</p>
             <pre><code>sudo add-apt-repository ppa:apandada1/quickbib
 sudo apt update
 sudo apt install quickbib</code></pre>
           </div>
-          <div class="install-card">
+          <div class="card">
             <h4>Arch Linux (<a href="https://aur.archlinux.org/packages/quickbib" target="_blank" rel="noopener">AUR</a>)</h4>
+            <p>Requires an AUR helper such as <code>yay</code>:</p>
             <pre><code>yay -S quickbib</code></pre>
           </div>
-          <div class="install-card">
+          <div class="card">
             <h4>Install from source (any distro)</h4>
             <p>QuickBib depends on <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> for DOI resolution and PyQt6. Build and install with meson:</p>
             <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
@@ -103,12 +117,15 @@ meson uninstall -C builddir</code></pre>
   <p>No prebuilt macOS installers: Distributing an app that users can graphically install and run seems to require paying Apple perpetually (US$99/year) to sign and notarize the app even if the app is free — that’s plain extortion — so we ship the source instead. You can run QuickBib from source or build a macOS app using the packaging scripts if you dare. Pull requests and heroic ideas for a user friendly installer are very welcome.</p>
 
   <h4 id="run-from-source">Here is how to run from source (on macOS as well as GNU/Linux)</h4>
+    <article class="card">
+      Run the following commands in a terminal:
         <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
 cd quickbib
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python3 -m quickbib</code></pre>
+    </article>
       </section>
 
       <section id="examples" class="container examples">
