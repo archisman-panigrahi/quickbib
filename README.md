@@ -23,16 +23,14 @@ sudo add-apt-repository ppa:apandada1/quickbib
 sudo apt update
 sudo apt install quickbib
 ```
-- Distro agnostic method: QuickBib is available on the Snap Store.
+- Distro agnostic method: QuickBib is available on Flathub and Snap Store.
 
-<a href="https://snapcraft.io/quickbib">
-    <img height='60' alt="Get it from the Snap Store" src=https://snapcraft.io/en/dark/install.svg />
+<a href='https://flathub.org/en/apps/io.github.archisman_panigrahi.QuickBib'>
+    <img height='55' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
 </a>
-<br>
-
-```
-sudo snap install quickbib
-```
+<a href="[https://snapcraft.io/typhoon](https://snapcraft.io/quickbib)">
+    <img height='55' alt="Get it from the Snap Store" src=https://snapcraft.io/en/dark/install.svg />
+</a>
 
 - Other distros: Install from source
 Install the required dependencies, pyqt6 and [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3). Afterwards, you can use meson to install quickbib.
