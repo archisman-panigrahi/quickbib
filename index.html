@@ -134,12 +134,15 @@ python3 -m quickbib</code></pre>
         <div class="grid">
           <div class="card">
             <h3>Input examples</h3>
-            <pre><code>10.1038/nphys1170
-http://dx.doi.org/10.1038/nphys1170
-https://arxiv.org/abs/2411.08091
-arxiv:2411.08091
-2411.08091
-https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9</code></pre>
+            <p class="muted">It can work with all the following:</p>
+            <ul class="example-list">
+              <li>DOI, e.g. <code>10.1038/nphys1170</code></li>
+              <li>DOI link, e.g. <code>https://doi.org/10.1038/nphys1170</code></li>
+              <li>arXiv link, e.g. <code>https://arxiv.org/abs/2411.08091</code></li>
+              <li>arXiv ID, e.g. <code>arxiv:2411.08091</code> or <code>arXiv:2411.08091</code> or <code>2411.08091</code></li>
+              <li>Old arXiv ID format, e.g. <code>hep-th/9901001</code></li>
+              <li>Journal link (works with APS journals, Nature journals, and PNAS, and more), e.g. <code>https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9</code></li>
+            </ul>
           </div>
           <div class="card">
             <h3>Programmatic (python)</h3>
