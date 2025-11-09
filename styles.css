@@ -16,7 +16,7 @@
   --terminal-font: "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, "Segoe UI Mono", "Roboto Mono", "Courier New", monospace;
 }
 *{box-sizing:border-box}
-html,body{height:100%}
+html,body{height:100%;overflow-x:hidden}
 /* Put the solid base color on the root so it can animate smoothly. */
 html{
   background-color: var(--bg);
@@ -63,6 +63,14 @@ pre code{background:transparent;padding:0;color:inherit}
 .site-header{
   position:fixed; /* keep header fixed to viewport */
   left:0;right:0;top:0;
+  /* Make the header exactly the viewport width and avoid adding any extra width
+     from padding/margins or pseudo-elements. Use box-sizing so padding doesn't
+     increase the computed size. Avoid 100vw because it can include the scrollbar
+     and produce overflow; width:100% with left/right set to 0 ties it to the
+     viewport inset. */
+  width:100%;
+  box-sizing:border-box;
+  overflow-x:hidden; /* defensive: prevent accidental horizontal overflow from children */
   z-index:1000; /* high z-index to ensure it sits above content */
   background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.88));
   backdrop-filter:blur(6px);
@@ -86,10 +94,15 @@ pre code{background:transparent;padding:0;color:inherit}
 .hero{padding:56px 0;position:relative}
 .hero::before{
   content:"";
-  position:absolute;right:-60px;top:-30px;width:360px;height:360px;border-radius:50%;
+  position:absolute;right:0;top:-30px;/* anchor to right edge so it doesn't force wider layout */
+  /* use a clamped size so it scales down on narrow viewports */
+  width:clamp(180px, 28vw, 360px);
+  height:clamp(180px, 28vw, 360px);
+  border-radius:50%;
   background:radial-gradient(circle at 30% 30%, rgba(124,92,255,0.10), rgba(124,92,255,0.05) 40%, transparent 60%),
              radial-gradient(circle at 70% 70%, rgba(18,102,241,0.06), transparent 40%);
-  /* reduced blur to lower paint cost */
+  /* visually offset without affecting layout width */
+  transform: translateX(20%);
   filter: blur(18px);
   pointer-events:none;z-index:0;
 }
