@@ -11,18 +11,18 @@ This is a cross platform app that enables you to get the bibtex entry from a DOI
     <img src="https://repology.org/badge/vertical-allrepos/quickbib.svg" alt="Packaging status" align="right">
 </a>
 
- - On Arch Linux, you can get it from the AUR
-
-```
-yay -S quickbib
-```
-
 - On Ubuntu (24.04+), you can use our [official PPA](https://code.launchpad.net/~apandada1/+archive/ubuntu/quickbib)
 ```
 sudo add-apt-repository ppa:apandada1/quickbib
 sudo apt update
 sudo apt install quickbib
 ```
+ - On Arch Linux, you can get it from the AUR
+
+```
+yay -S quickbib
+```
+
 - Distro agnostic method: QuickBib is available on Flathub and Snap Store.
 
 <a href='https://flathub.org/en/apps/io.github.archisman_panigrahi.QuickBib'>
