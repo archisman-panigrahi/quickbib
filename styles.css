@@ -57,7 +57,16 @@ pre{
 pre code{background:transparent;padding:0;color:inherit}
 
 .container{max-width:var(--max-width);margin:0 auto;padding:24px}
-.site-header{position:sticky;top:0;z-index:80;background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.88));backdrop-filter:blur(6px);border-bottom:1px solid rgba(15,23,36,0.06);
+/* Make the header fixed so it stays on top while scrolling.
+   Use fixed positioning for consistent behaviour across browsers.
+   Keep the original sticky fallback in case fixed is undesirable on some devices. */
+.site-header{
+  position:fixed; /* keep header fixed to viewport */
+  left:0;right:0;top:0;
+  z-index:1000; /* high z-index to ensure it sits above content */
+  background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.88));
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(15,23,36,0.06);
   transition: background-color 320ms ease, background 420ms ease, border-color 320ms ease;
 }
 .header-inner{display:flex;align-items:center;justify-content:space-between}
@@ -116,6 +125,8 @@ pre code{background:transparent;padding:0;color:inherit}
 
 .install{padding:28px 0}
 .badges{display:flex;justify-content:center;align-items:center;gap:12px;margin:12px 0}
+/* Badge images: make them responsive and reduce size on smaller screens */
+.badges img{height:70px;max-width:100%;object-fit:contain}
 .install-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .install-card{background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,255,0.98));padding:14px;border-radius:12px;border:1px solid rgba(15,23,36,0.04);box-shadow:0 6px 18px rgba(12,20,40,0.04)}
 pre{background:rgba(10,18,32,0.03);padding:12px;border-radius:8px;overflow:auto;color:var(--text)}
@@ -154,7 +165,10 @@ body::before{
 }
 
 /* Ensure main content sits above the overlay */
-main, .site-header, .site-footer, .container{position:relative;z-index:1}
+.site-footer, .container{position:relative;z-index:1}
+/* Ensure main content is not hidden under the fixed header by adding top padding.
+  The header height is roughly 80px (48px icon + vertical padding). Use a conservative value. */
+main{position:relative;z-index:1;padding-top:88px}
 .footer-inner{display:flex;justify-content:space-between;align-items:center}
 .footer-actions a{color:var(--muted);margin-left:12px;text-decoration:none}
 
@@ -173,6 +187,17 @@ main, .site-header, .site-footer, .container{position:relative;z-index:1}
   .nav a{padding:8px 12px}
   .brand-text{display:none}
   .container{padding:16px}
+}
+
+/* Smaller badge sizes for narrow screens */
+@media (max-width:520px){
+  .badges{gap:8px}
+  .badges img{height:52px}
+}
+
+@media (max-width:380px){
+  .badges{flex-direction:column;gap:8px}
+  .badges img{height:44px}
 }
 
 @media (max-width:480px){
