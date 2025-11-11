@@ -40,8 +40,8 @@ QuickBib is available on Flathub and Snap Store.
 #### Install from source with meson
 Install the required dependencies, pyqt6 and [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3). Afterwards, you can use meson to install quickbib.
 ```
-git clone git clone https://github.com/archisman-panigrahi/quickbib.git
-cd quickbib
+git clone git clone https://github.com/archisman-panigrahi/QuickBib.git
+cd QuickBib
 meson setup builddir --prefix="$HOME/.local"
 meson install -C builddir
 ```
