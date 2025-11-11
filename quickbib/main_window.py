@@ -78,6 +78,8 @@ class QuickBibWindow(QMainWindow):
         self.doi_entry = QLineEdit()
         self.doi_entry.setPlaceholderText("DOI or arXiv ID or arXiv URL or Journal URL")
         entry_box.addWidget(self.doi_entry)
+        # Trigger fetch when user presses Enter in the DOI entry
+        self.doi_entry.returnPressed.connect(self.fetch_bibtex)
 
         fetch_btn = QPushButton("Fetch")
         fetch_btn.clicked.connect(self.fetch_bibtex)
