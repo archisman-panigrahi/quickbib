@@ -25,6 +25,8 @@ apps:
       PYTHONPATH: $SNAP/usr/lib/python3/site-packages:$SNAP/usr/lib/python3/dist-packages:$PYTHONPATH
       QT_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins
       QT_QPA_PLATFORM_PLUGIN_PATH: ${SNAP}/usr/lib/x86_64-linux-gnu/qt6/plugins/platforms
+      # SNAP_DESKTOP_RUNTIME: $SNAP/kf6
+      # QT_VERSION: "6"
       # XDG_DATA_DIRS: $SNAP/usr/share:${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
     plugs:
       - network
@@ -34,7 +36,11 @@ apps:
 parts:
   quickbib:
     plugin: meson
-    source: ..
+    # Track the latest code from the GitHub repository (HEAD of `main` branch).
+    # Use a shallow clone (source-depth: 1) to fetch the latest commit quickly.
+    source: https://github.com/archisman-panigrahi/QuickBib.git
+    source-branch: main
+    source-depth: 1
     build-packages:
       - python3-dev
       - pkg-config
@@ -44,34 +50,11 @@ parts:
     stage-packages:
       - python3
       - python3-pyqt6
-    # Debug helper: ensure meson.build is at the top of the part source.
-    # Some managed build setups copy the repository under a 'project' subdir
-    # inside $SNAPCRAFT_PART_SRC; if so, move files up so Meson sees
-    # meson.build at $SNAPCRAFT_PART_SRC.
-    override-pull: |
-      # run the default pull step
-      snapcraftctl pull
-      echo "---- listing part src after pull (before fix) ----"
-      ls -la "$SNAPCRAFT_PART_SRC" || true
-      if [ -d "$SNAPCRAFT_PART_SRC/project" ]; then
-        echo "Found nested project directory; moving contents up..."
-        sh -c 'cp -a "$SNAPCRAFT_PART_SRC/project/." "$SNAPCRAFT_PART_SRC"'
-        rm -rf "$SNAPCRAFT_PART_SRC/project"
-      fi
-      echo "---- listing part src after fix ----"
-      ls -la "$SNAPCRAFT_PART_SRC" || true
-    override-build: |
-      # run the default build step (meson + ninja)
-      snapcraftctl build
-      echo "---- moving /usr/local -> /usr in part install (if present) ----"
-      if [ -d "$SNAPCRAFT_PART_INSTALL/usr/local/bin" ]; then
-        mkdir -p "$SNAPCRAFT_PART_INSTALL/usr/bin"
-        cp -a "$SNAPCRAFT_PART_INSTALL/usr/local/bin/." "$SNAPCRAFT_PART_INSTALL/usr/bin/" || true
-      fi
-      if [ -d "$SNAPCRAFT_PART_INSTALL/usr/local/share" ]; then
-        mkdir -p "$SNAPCRAFT_PART_INSTALL/usr/share"
-        cp -a "$SNAPCRAFT_PART_INSTALL/usr/local/share/." "$SNAPCRAFT_PART_INSTALL/usr/share/" || true
-      fi
+    meson-parameters:
+      - --prefix=/snap/quickbib/current/usr
+      - -Dbuildtype=release
+    organize:
+      snap/quickbib/current: .
 
   python-deps:
     plugin: python
