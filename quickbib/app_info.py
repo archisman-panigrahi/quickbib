@@ -2,7 +2,7 @@ from pathlib import Path
 
 # Application metadata
 APP_NAME = "QuickBib"
-APP_VERSION = "0.3.2"
+APP_VERSION = "0.3.3"
 HOMEPAGE = "https://archisman-panigrahi.github.io/QuickBib/"
 REPO_URL = "https://github.com/archisman-panigrahi/QuickBib"
 # LICENSE is located in the repository root (one level up from the package dir)

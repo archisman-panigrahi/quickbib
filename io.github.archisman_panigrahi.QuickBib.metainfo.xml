@@ -34,6 +34,12 @@
     <color type="primary" scheme_preference="dark">#421313</color>
   </branding>
   <releases>
+    <release version="0.3.3" date="2025-11-10">
+      <description>
+        <p>Enter to search and new icon</p>
+      </description>
+      <url type="details">https://github.com/archisman-panigrahi/QuickBib/releases/tag/v0.3.3</url>
+    </release>
     <release version="0.3.2" date="2025-11-08">
       <description>
         <p>Fix about dialog</p>
