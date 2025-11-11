@@ -87,7 +87,7 @@ class AboutDialog(QDialog):
         <p> QuickBib uses <a href="https://github.com/archisman-panigrahi/doi2bib3">doi2bib3</a>
         as its backend for DOI to BibTeX conversion.</p>
         <p>
-          <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a>
+          <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a><br>
           <b>Source Code:</b> <a href="{REPO_URL}">{REPO_URL}</a>
         </p>
         <p><b>License:</b> Released under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html#license-text">GNU General Public License Version 3</a>. Full text available on the <i>License</i> tab.</p>
