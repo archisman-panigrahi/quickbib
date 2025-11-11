@@ -46,6 +46,11 @@ html {
   --text:#0f1724;   /* primary text (dark, but not black) */
   --subtle-shadow: 0 8px 28px rgba(16,24,40,0.06);
   --terminal-font: "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, "Segoe UI Mono", "Roboto Mono", "Courier New", monospace;
+  /* Link color scheme (accessible by default). Tweak these to taste. */
+  --link-color: #0b66c3;      /* strong, accessible blue for links */
+  --link-hover: #084b8a;      /* darker blue on hover */
+  --link-visited: #0b7f6a;    /* pleasant teal for visited links (replaces violet) */
+  --link-focus: #ffd166;      /* warm yellow for focus outline (high contrast) */
 }
 *{box-sizing:border-box}
 html,body{height:100%;overflow-x:hidden}
@@ -122,6 +127,14 @@ pre code{background:transparent;padding:0;color:inherit}
 .nav{display:flex;gap:18px}
 .nav a{color:var(--muted);text-decoration:none;padding:8px;border-radius:10px;transition:background-color 220ms ease,color 220ms ease,transform 180ms ease}
 .nav a:hover{color:white;background:linear-gradient(90deg,var(--accent),var(--accent-3));transform:translateY(-2px)}
+
+/* Global link styling using the color variables declared above. This keeps
+  links accessible and consistent across the site. We preserve the nav
+  hover rule above by placing these rules after it. */
+a{color:var(--link-color);text-decoration:underline;text-underline-offset:2px;transition:color 160ms ease}
+a:visited{color:var(--link-visited)}
+a:hover,a:active{color:var(--link-hover)}
+a:focus{outline:3px solid var(--link-focus);outline-offset:4px;border-radius:6px}
 
 .hero{padding:56px 0;position:relative}
 .hero::before{
