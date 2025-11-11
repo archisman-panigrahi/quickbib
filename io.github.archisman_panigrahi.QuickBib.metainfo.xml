@@ -28,6 +28,10 @@
       <caption>BibTeX obtained from arXiv link</caption>
       <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/03b52faa835cf83272791847a80e02089a72daf8/assets/screenshots/quickbib_arxiv.png</image>
     </screenshot>
+    <screenshot type="default">
+      <caption>All kinds of examples</caption>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/ce20df92fd2223091556f8992f8b18354f01888d/assets/screenshots/examples.png</image>
+    </screenshot>
   </screenshots>
   <branding>
     <color type="primary" scheme_preference="light">#ffeeaa</color>
