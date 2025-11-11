@@ -33,7 +33,7 @@
         <div class="container hero-inner">
           <div class="hero-copy">
             <h1>Get BibTeX from a DOI — fast.</h1>
-            <p class="lede">QuickBib is a cross-platform utility that uses <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> to fetch BibTeX for DOIs and arXiv identifiers. Works as a GUI app and also as a CLI. Perfect for research workflows, manuscripts and automation.</p>
+            <p class="lede">QuickBib is a cross-platform utility that uses <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> to fetch BibTeX for DOIs, arXiv identifiers as well as article titles. Works as a GUI app and also as a CLI. Perfect for research workflows, manuscripts and automation.</p>
             <p class="cta-row">
               <a class="btn primary" href="#install">Install on GNU/Linux</a>
               <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">Download for Windows</a>
@@ -56,7 +56,7 @@
           </article>
           <article class="card">
             <h3>arXiv and Journal aware</h3>
-            <p>Paste arXiv IDs, arXiv URLs, or Journal links — QuickBib detects them and resolves the DOI automatically. See <a href="#examples">examples</a>.</p>
+            <p>Paste arXiv IDs, arXiv URLs, Journal links or titles — QuickBib detects them and resolves the DOI automatically. See <a href="#examples">examples</a>.</p>
           </article>
           <article class="card">
             <h3>GUI + CLI</h3>
@@ -134,7 +134,7 @@
 
       <section id="examples" class="container examples">
         <h2>Quick examples</h2>
-        <p class="muted">QuickBib accepts common identifiers and links — DOIs, DOI URLs, arXiv IDs/URLs, and journal article URLs. Below are examples of supported inputs and how you might use them programmatically.</p>
+        <p class="muted">QuickBib accepts common identifiers and links — DOIs, DOI URLs, arXiv IDs/URLs, journal article URLs as well as their titles. Below are examples of supported inputs and how you might use them programmatically.</p>
         <div class="grid">
           <div class="card">
             <h3>Input examples</h3>
@@ -146,6 +146,7 @@
               <li>arXiv ID, e.g. <code>arxiv:2411.08091</code> or <code>arXiv:2411.08091</code> or <code>2411.08091</code></li>
               <li>Old arXiv ID format, e.g. <code>hep-th/9901001</code></li>
               <li>Journal link (works with APS journals, Nature journals, and PNAS, and more), e.g. <code>https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9</code></li>
+              <li>Title of article, e.g. <code>Projected Topological Branes</code> (supports fuzzy search!)</li>
             </ul>
           </div>
           <div id="programmatic" class="card">
