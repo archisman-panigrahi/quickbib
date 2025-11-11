@@ -1,3 +1,35 @@
+/* styles.css
+   Minimal anchor offset fix so jumping to #ids is not hidden under the fixed header.
+   Adjust --site-header-height to match the real header height in your layout.
+*/
+
+:root {
+  /* change this if your header is taller/shorter */
+  --site-header-height: 64px;
+}
+
+/* Primary solution: modern browsers support scroll-margin-top on elements with an id */
+[id] {
+  scroll-margin-top: var(--site-header-height);
+  -webkit-scroll-margin-top: var(--site-header-height);
+}
+
+/* Fallback: if a browser doesn't support scroll-margin-top, this creates
+   an invisible pseudo-element for :target so the element is pushed below
+   the header when navigated-to using an anchor. */
+:target::before {
+  content: "";
+  display: block;
+  height: var(--site-header-height);
+  margin-top: calc(var(--site-header-height) * -1);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Optional: enable smooth scrolling if you want */
+html {
+  scroll-behavior: smooth;
+}
 :root{
   --max-width:1080px;
   --accent:#1266f1; /* lively blue */
