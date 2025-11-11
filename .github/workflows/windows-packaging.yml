@@ -109,12 +109,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: QuickBib-windows-installer
-          path: windows_packaging/QuickBib-Installer.exe
+          path: windows_packaging/QuickBib-Installer-*.exe
 
       - name: Upload installer to GitHub Release (only for releases)
         if: github.event_name == 'release'
         uses: softprops/action-gh-release@v2
         with:
-          files: windows_packaging/QuickBib-Installer.exe
+          files: windows_packaging/QuickBib-Installer-*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

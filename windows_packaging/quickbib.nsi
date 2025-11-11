@@ -31,7 +31,7 @@ SetCompress off
 ; using a parent-directory prefix.
 Icon "..\\assets\\icon\\64x64\\io.github.archisman_panigrahi.QuickBib.ico"
 
-OutFile "${APP_NAME}-Installer.exe"
+OutFile "${APP_NAME}-Installer-${VERSION}.exe"
 InstallDir "$PROGRAMFILES\\${APP_NAME}"
 
 Page directory
