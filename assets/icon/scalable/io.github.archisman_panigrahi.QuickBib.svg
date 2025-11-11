@@ -23,7 +23,7 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="1.6503902"
-     inkscape:cx="255.69711"
+     inkscape:cx="256.30302"
      inkscape:cy="255.39415"
      inkscape:window-width="1920"
      inkscape:window-height="1012"
@@ -66,85 +66,89 @@
     <g
        id="g1"
        transform="matrix(0.97871601,0,0,0.97871601,1.8776396,5.4408086)">
-      <path
-         d="M 738.06565,573.91769 A 324.95785,324.95785 0 0 1 420.00568,905.47304 324.95785,324.95785 0 0 1 88.293561,587.57657 324.95785,324.95785 0 0 1 406.0265,255.70779 324.95785,324.95785 0 0 1 738.05187,573.27712"
-         fill="url(#a)"
-         id="path1"
-         style="fill:#ffffff;fill-opacity:1;stroke-width:1" />
-      <path
-         d="M 725.07007,574.18445 A 311.95954,311.95954 0 0 1 419.7325,892.47761 311.95954,311.95954 0 0 1 101.28887,587.29697 311.95954,311.95954 0 0 1 406.31249,268.70294 311.95954,311.95954 0 0 1 725.05684,573.5695"
-         fill="url(#a)"
-         id="path2"
-         style="fill:url(#a);stroke-width:0.96" />
       <g
-         transform="matrix(1.2676936,0,0,1.2676936,-116.10046,-158.57852)"
-         id="g7">
-        <rect
-           fill="#1a1a1a"
-           filter="url(#b)"
-           height="383.56357"
-           ry="16.214912"
-           transform="translate(0.345154,4.24144)"
-           width="300.51947"
-           x="266.90662"
-           y="387.05573"
-           id="rect2" />
-        <rect
-           fill="#ffffff"
-           height="372.65704"
-           ry="15.753846"
-           width="289.09149"
-           x="272.96576"
-           y="396.75043"
-           id="rect3" />
+         id="g2"
+         transform="matrix(0.91999999,0,0,0.91999999,33.054103,46.446962)">
+        <path
+           d="M 738.06565,573.91769 A 324.95785,324.95785 0 0 1 420.00568,905.47304 324.95785,324.95785 0 0 1 88.293561,587.57657 324.95785,324.95785 0 0 1 406.0265,255.70779 324.95785,324.95785 0 0 1 738.05187,573.27712"
+           fill="url(#a)"
+           id="path1"
+           style="fill:#ffffff;fill-opacity:1;stroke-width:1" />
+        <path
+           d="M 725.07007,574.18445 A 311.95954,311.95954 0 0 1 419.7325,892.47761 311.95954,311.95954 0 0 1 101.28887,587.29697 311.95954,311.95954 0 0 1 406.31249,268.70294 311.95954,311.95954 0 0 1 725.05684,573.5695"
+           fill="url(#a)"
+           id="path2"
+           style="fill:url(#a);stroke-width:0.96" />
         <g
-           id="g10"
-           transform="matrix(2.1083567,0,0,2.1083567,-350.58365,-457.60211)">
+           transform="matrix(1.2676936,0,0,1.2676936,-116.10046,-158.57852)"
+           id="g7">
+          <rect
+             fill="#1a1a1a"
+             filter="url(#b)"
+             height="383.56357"
+             ry="16.214912"
+             transform="translate(0.345154,4.24144)"
+             width="300.51947"
+             x="266.90662"
+             y="387.05573"
+             id="rect2" />
+          <rect
+             fill="#ffffff"
+             height="372.65704"
+             ry="15.753846"
+             width="289.09149"
+             x="272.96576"
+             y="396.75043"
+             id="rect3" />
           <g
-             id="g9">
-            <rect
+             id="g10"
+             transform="matrix(2.1083567,0,0,2.1083567,-350.58365,-457.60211)">
+            <g
+               id="g9">
+              <rect
+                 fill="#133660"
+                 height="53.562298"
+                 ry="9.5554867"
+                 width="117.95103"
+                 x="306.98306"
+                 y="430.70169"
+                 id="rect4" />
+            </g>
+            <text
                fill="#133660"
-               height="53.562298"
-               ry="9.5554867"
-               width="117.95103"
-               x="306.98306"
-               y="430.70169"
-               id="rect4" />
+               font-family="'Times New Roman'"
+               font-size="42.0361px"
+               letter-spacing="1.28835"
+               stroke-width="2.02993"
+               x="365.00665"
+               y="472.55276"
+               id="text4"
+               style="text-anchor:middle"><tspan
+                 fill="#ffffff"
+                 font-family="Lato"
+                 font-weight="bold"
+                 stroke-width="2.02993"
+                 x="365.8511"
+                 y="472.55276"
+                 id="tspan4">DOI</tspan></text>
           </g>
           <text
-             fill="#133660"
-             font-family="'Times New Roman'"
-             font-size="42.0361px"
-             letter-spacing="1.28835"
-             stroke-width="2.02993"
-             x="365.00665"
-             y="472.55276"
-             id="text4"
-             style="text-anchor:middle"><tspan
-               fill="#ffffff"
-               font-family="Lato"
-               font-weight="bold"
-               stroke-width="2.02993"
-               x="365.8511"
-               y="472.55276"
-               id="tspan4">DOI</tspan></text>
-        </g>
-        <text
-           style="font-size:136.947px;font-family:'Latin Modern Roman';letter-spacing:5.50232;text-anchor:middle;fill:#a51a2a;stroke:#a51a2a;stroke-width:6.61314"
-           x="418.41864"
-           y="704.37653"
-           id="text6"><tspan
-             fill="#a51a2a"
-             font-family="'Times New Roman'"
-             font-weight="bold"
-             stroke="#a51a2a"
-             stroke-width="6.61314"
-             x="421.1698"
+             style="font-size:136.947px;font-family:'Latin Modern Roman';letter-spacing:5.50232;text-anchor:middle;fill:#a51a2a;stroke:#a51a2a;stroke-width:6.61314"
+             x="418.41864"
              y="704.37653"
-             id="tspan6">{<tspan
+             id="text6"><tspan
+               fill="#a51a2a"
+               font-family="'Times New Roman'"
+               font-weight="bold"
+               stroke="#a51a2a"
+               stroke-width="6.61314"
+               x="421.1698"
+               y="704.37653"
+               id="tspan6">{<tspan
    font-weight="normal"
    id="tspan5"
    style="stroke-width:6.61314">@</tspan>}</tspan></text>
+        </g>
       </g>
     </g>
   </g>
