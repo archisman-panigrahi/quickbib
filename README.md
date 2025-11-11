@@ -11,19 +11,24 @@ This is a cross platform app that enables you to get the bibtex entry from a DOI
     <img src="https://repology.org/badge/vertical-allrepos/quickbib.svg" alt="Packaging status" align="right">
 </a>
 
-- On Ubuntu (24.04+), you can use our [official PPA](https://code.launchpad.net/~apandada1/+archive/ubuntu/quickbib)
+#### Ubuntu/Mint 
+You can use our [official PPA](https://code.launchpad.net/~apandada1/+archive/ubuntu/quickbib)
 ```
 sudo add-apt-repository ppa:apandada1/quickbib
 sudo apt update
 sudo apt install quickbib
 ```
- - On Arch Linux, you can get it from the AUR
+On Debian,you can download and install the prebuilt .deb package from the PPA (or, use Flatpak/Snap).
+
+#### Arch Linux/EndeavourOS/Manjaro
+You can get it from the AUR
 
 ```
 yay -S quickbib
 ```
 
-- Distro agnostic method: QuickBib is available on Flathub and Snap Store.
+#### Distro agnostic method 
+QuickBib is available on Flathub and Snap Store.
 
 <a href='https://flathub.org/en/apps/io.github.archisman_panigrahi.QuickBib'>
     <img height='55' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/>
@@ -32,7 +37,7 @@ yay -S quickbib
     <img height='55' alt="Get it from the Snap Store" src=https://snapcraft.io/en/dark/install.svg />
 </a>
 
-- Other distros: Install from source
+#### Install from source with meson
 Install the required dependencies, pyqt6 and [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3). Afterwards, you can use meson to install quickbib.
 ```
 meson setup builddir --prefix="$HOME/.local"
