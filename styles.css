@@ -45,7 +45,8 @@ html {
   --radius:12px;
   --text:#0f1724;   /* primary text (dark, but not black) */
   --subtle-shadow: 0 8px 28px rgba(16,24,40,0.06);
-  --terminal-font: "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, "Segoe UI Mono", "Roboto Mono", "Courier New", monospace;
+  --terminal-font: "Ubuntu Mono", "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, "Segoe UI Mono", "Roboto Mono", "Courier New", monospace;
+  --terminal-font-size: 1.25rem; /* slightly larger monospace text for readability */
   /* Link color scheme (accessible by default). Tweak these to taste. */
   --link-color: #0b7f6a;      /* pleasant teal for links */
   --link-hover: #084b8a;      /* darker blue on hover */
@@ -71,18 +72,21 @@ body{
 }
 .code, code, kbd, samp {
   font-family: var(--terminal-font);
+  font-size: var(--terminal-font-size);
 }
 code{
   background: rgba(18,32,58,0.03);
   padding: 2px 8px;
   border-radius: 8px;
-  font-size: 0.95em;
   color: var(--text);
+  /* inherit the monospace font-size so inline code matches pre/code blocks */
+  font-size: 1.125rem;
 }
 
 /* Terminal-style pre blocks (professional macOS-like look) */
 pre{
   font-family: var(--terminal-font);
+  font-size: 1.125rem;
   background: linear-gradient(180deg,#0b1220,#091021); /* dark terminal surface */
   color: #e6eef8;
   padding:14px;
