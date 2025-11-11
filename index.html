@@ -52,11 +52,11 @@
           </article>
           <article class="card">
             <h3>arXiv and Journal aware</h3>
-            <p>Paste arXiv IDs, arXiv URLs, or Journal links — QuickBib detects them and resolves the DOI automatically.</p>
+            <p>Paste arXiv IDs, arXiv URLs, or Journal links — QuickBib detects them and resolves the DOI automatically. See <a href="#examples">examples</a>.</p>
           </article>
           <article class="card">
             <h3>GUI + CLI</h3>
-            <p>Use the GUI app for quick lookups or integrate into scripts via the CLI and programmatic API.</p>
+            <p>Use the GUI app for quick lookups or integrate into scripts via the CLI and <a href="#programmatic">programmatic API</a>.</p>
           </article>
           <article class="card">
             <h3>Free software + Cross platform</h3>
@@ -84,11 +84,14 @@
           You can also install QuickBib using your distro's package manager:
           <br><br>
           <div class="card">
-            <h4>Ubuntu 24.04+ (<a href="https://launchpad.net/~apandada1/+archive/ubuntu/quickbib" target="_blank" rel="noopener">Official PPA</a>)</h4>
-            <p>Run these commands one by one in a terminal to add the PPA and install QuickBib:</p>
-            <pre><code>sudo add-apt-repository ppa:apandada1/quickbib
-sudo apt update
-sudo apt install quickbib</code></pre>
+            <h4>Ubuntu 24.04+/Mint 22+ (<a href="https://launchpad.net/~apandada1/+archive/ubuntu/quickbib" target="_blank" rel="noopener">Official PPA</a>)</h4>
+            <p>Run these commands one by one in a terminal to install QuickBib.</p>
+            First, add the PPA:
+            <pre><code>sudo add-apt-repository ppa:apandada1/quickbib</code></pre>
+            Then, update package lists:
+            <pre><code>sudo apt update</code></pre>
+            Finally, install QuickBib:
+            <pre><code>sudo apt install quickbib</code></pre>
           </div>
           <div class="card">
             <h4>Arch Linux (<a href="https://aur.archlinux.org/packages/quickbib" target="_blank" rel="noopener">AUR</a>)</h4>
@@ -97,15 +100,7 @@ sudo apt install quickbib</code></pre>
           </div>
           <div class="card">
             <h4>Install from source (any distro)</h4>
-            <p>QuickBib depends on <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> for DOI resolution and PyQt6. Build and install with meson:</p>
-            <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
-cd quickbib
-meson setup builddir --prefix="$HOME/.local"
-meson install -C builddir
-
-# to uninstall
-meson uninstall -C builddir</code></pre>
-            <p class="muted">If you need <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code>, see its README (the backend provides the CLI <code>doi2bib3</code> and a Python API).</p>
+            <p>Follow the instructions in the <a href="#run-from-source">"Run from source"</a> section below to clone the repository and run QuickBib from source.</p>
           </div>
         </div>
 
@@ -113,19 +108,25 @@ meson uninstall -C builddir</code></pre>
   <p>Prebuilt installers for Windows are available on the Releases page. Download the Windows installer here: <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">GitHub Releases</a></p>
 
   <h3>macOS</h3>
-  <p>No prebuilt macOS installers: Distributing an app that users can graphically install and run seems to require paying Apple perpetually (US$99/year) to sign and notarize the app even if the app is free — that’s plain extortion — so we ship the source instead. You can run QuickBib from source or build a macOS app using the packaging scripts if you dare. Pull requests and heroic ideas for a user friendly installer are very welcome.</p>
-
+      <p>No prebuilt macOS installers: Distributing an app that users can graphically install and run seems to require paying Apple perpetually (US$99/year) to sign and notarize the app even if the app is free — that’s plain extortion — so we ship the source instead. You can run QuickBib from source or build a macOS app using the packaging scripts on <a href="https://github.com/archisman-panigrahi/QuickBib" target="_blank" rel="noopener">GitHub</a>. Pull requests and heroic ideas for a user friendly installer are very welcome.</p>
+      <p>Alternatively, you can use our CLI backend <code><a href="https://pypi.org/project/doi2bib3/" target="_blank" rel="noopener">doi2bib3</a></code>. Install it with <code>pip3 install --user doi2bib3</code>.</p>
   <h4 id="run-from-source">Here is how to run from source (on macOS as well as GNU/Linux)</h4>
     <article class="card">
       Run the following commands in a terminal:
-        <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git
-cd quickbib
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-python3 -m quickbib</code></pre>
+      First, clone the repository:
+        <pre><code>git clone https://github.com/archisman-panigrahi/quickbib.git</code></pre>
+        Change to the source directory:
+        <pre><code>cd quickbib</code></pre>
+        Create a virtual environment:
+        <pre><code>python3 -m venv .venv</code></pre>
+        Activate the virtual environment:
+        <pre><code>source .venv/bin/activate</code></pre>
+        Install the dependencies:
+        <pre><code>pip install -r requirements.txt</code></pre>
+        Run QuickBib:
+        <pre><code>python3 -m quickbib</code></pre>
     </article>
-      </section>
+        </section>
 
       <section id="examples" class="container examples">
         <h2>Quick examples</h2>
@@ -143,7 +144,7 @@ python3 -m quickbib</code></pre>
               <li>Journal link (works with APS journals, Nature journals, and PNAS, and more), e.g. <code>https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9</code></li>
             </ul>
           </div>
-          <div class="card">
+          <div id="programmatic" class="card">
             <h3>Programmatic (python)</h3>
             <pre><code>from doi2bib3 import fetch_bibtex
 bib = fetch_bibtex('https://doi.org/10.1073/pnas.2305943120')
@@ -152,7 +153,7 @@ print(bib)</code></pre>
           </div>
         </div>
 
-        <p class="muted" style="margin-top:12px">There is also a command-line tool <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> that supports the same input types and is useful for scripting and automation.</p>
+        <p class="muted" style="margin-top:12px">The command-line backend <code><a href="https://github.com/archisman-panigrahi/doi2bib3" target="_blank" rel="noopener">doi2bib3</a></code> supports the same input types and is useful for scripting and automation.</p>
       </section>
 
       <section id="faq" class="container faq">
@@ -168,6 +169,10 @@ print(bib)</code></pre>
         <details>
           <summary>Where do I report bugs or request features?</summary>
           <p>Feature requests, bug reports, and pull requests are welcome — please open an issue or submit a PR on the <a href="https://github.com/archisman-panigrahi/quickbib/issues">QuickBib GitHub repository</a>. Contributions help improve QuickBib for everyone.</p>
+        </details>
+        <details>
+          <summary>Is there a CLI backend?</summary>
+          <p>Yes! You can use <code><a href="https://pypi.org/project/doi2bib3/" target="_blank" rel="noopener">doi2bib3</a></code>. Install it with <code>pip3 install --user doi2bib3</code>. It supports the same input arguments as QuickBib, but also provides python API and it can also export BibTeX entries to a .bib file.</p>
         </details>
       </section>
     </main>
