@@ -47,7 +47,7 @@ html {
   --subtle-shadow: 0 8px 28px rgba(16,24,40,0.06);
   --terminal-font: "SF Mono", "SFMono-Regular", ui-monospace, Menlo, Monaco, "Segoe UI Mono", "Roboto Mono", "Courier New", monospace;
   /* Link color scheme (accessible by default). Tweak these to taste. */
-  --link-color: #0b66c3;      /* strong, accessible blue for links */
+  --link-color: #0b7f6a;      /* pleasant teal for links */
   --link-hover: #084b8a;      /* darker blue on hover */
   --link-visited: #0b7f6a;    /* pleasant teal for visited links (replaces violet) */
   --link-focus: #ffd166;      /* warm yellow for focus outline (high contrast) */
