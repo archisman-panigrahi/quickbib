@@ -20,6 +20,7 @@ from PyQt6.QtCore import QObject, pyqtSignal, Qt
 
 from .helpers import get_bibtex_for_doi, copy_to_clipboard
 from .about_dialog import AboutDialog
+from .how_to_use_dialog import HowToUseDialog
 from .app_info import LICENSE_PATH
 
 
@@ -68,6 +69,10 @@ class QuickBibWindow(QMainWindow):
         about_action.triggered.connect(self.show_about)
         help_menu.addAction(about_action)
 
+        howto_action = QAction("How to &use", self)
+        howto_action.triggered.connect(self.show_how_to_use)
+        help_menu.addAction(howto_action)
+
         # DOI entry
         entry_box = QHBoxLayout()
         vbox.addLayout(entry_box)
@@ -76,7 +81,7 @@ class QuickBibWindow(QMainWindow):
         entry_box.addWidget(label)
 
         self.doi_entry = QLineEdit()
-        self.doi_entry.setPlaceholderText("DOI or arXiv ID or arXiv URL or Journal URL")
+        self.doi_entry.setPlaceholderText("DOI or arXiv ID or arXiv URL or Journal URL or Article Title")
         entry_box.addWidget(self.doi_entry)
         # Trigger fetch when user presses Enter in the DOI entry
         self.doi_entry.returnPressed.connect(self.fetch_bibtex)
@@ -111,6 +116,10 @@ class QuickBibWindow(QMainWindow):
 
     def show_about(self):
         dlg = AboutDialog(self)
+        dlg.exec()
+
+    def show_how_to_use(self):
+        dlg = HowToUseDialog(self)
         dlg.exec()
 
     def fetch_bibtex(self):
