@@ -1,6 +1,6 @@
 # <img src="assets/icon/scalable/io.github.archisman_panigrahi.QuickBib.svg" align="left" width="90" height="90">  <br> QuickBib
 
-This is a cross platform app that enables you to get the bibtex entry from a DOI number. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend. Written in Python, QuickBib is licensed under GPLv3.
+This is a cross platform app that enables you to get the bibtex entry from a DOI number, arXiv ID, article url (supports Nature journal, APS journal, PNAS, and more) or article title. It uses [doi2bib3](https://github.com/archisman-panigrahi/doi2bib3) as its backend. Written in Python, QuickBib is licensed under GPLv3.
  
 ![screenshot](assets/screenshots/quickbib_arxiv.png)
 
