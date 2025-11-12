@@ -4,7 +4,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-only</project_license>
   <name>QuickBib</name>
-  <summary>Get BibTeX from a DOI — fast</summary>
+  <summary>Quickly get BibTeX from a DOI</summary>
   <description type="long">
     <p>QuickBib helps you quickly generate BibTeX bibliographic entries from identifiers such as DOIs, arXiv IDs, article URLs and their titles. Enter an identifier and QuickBib will fetch the metadata and produce a ready-to-use BibTeX entry which you can copy to your clipboard and use in your LaTeX documents.</p>
     <p>Features include: fast DOI/arXiv lookup and copy-to-clipboard.</p>
@@ -30,7 +30,7 @@
     </screenshot>
     <screenshot type="default">
       <caption>All kinds of examples</caption>
-      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/ce20df92fd2223091556f8992f8b18354f01888d/assets/screenshots/examples.png</image>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/58299877c8d6aac2252de7f0a0feef2dbe89cb75/assets/screenshots/examples.png</image>
     </screenshot>
   </screenshots>
   <branding>
