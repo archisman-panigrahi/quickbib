@@ -46,6 +46,12 @@
     <color type="primary" scheme_preference="dark">#421313</color>
   </branding>
   <releases>
+    <release version="0.4.1" date="2025-11-22">
+      <description>
+        <p>fix duplicate bibtex key</p>
+      </description>
+      <url type="details">https://github.com/archisman-panigrahi/QuickBib/releases/tag/v0.4.1</url>
+    </release>
     <release version="0.4.0" date="2025-11-11">
       <description>
         <p>added how to use</p>

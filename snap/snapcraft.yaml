@@ -1,6 +1,6 @@
 name: quickbib
-version: '0.4.0'
-summary: "Get BibTeX from a DOI — fast"
+version: '0.4.1'
+summary: "Quickly get BibTeX from a DOI"
 description: |
   QuickBib is a small cross-platform desktop app that retrieves the BibTeX
   entry for a publication from its DOI (Digital Object Identifier). It
