@@ -18,19 +18,27 @@
     <screenshots>
     <screenshot type="default">
       <caption>BibTeX obtained from DOI link</caption>
-      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/a55bcb87f3a81213772fcde6e0c80595d4f8f166/assets/screenshots/quickbib_doi.png</image>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/81bca85e60cc3bc97dc2ca2397a7d97a73ce4e3f/assets/screenshots/quickbib_doi.png</image>
     </screenshot>
     <screenshot type="default">
       <caption>BibTeX obtained from APS journal link</caption>
-      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/a55bcb87f3a81213772fcde6e0c80595d4f8f166/assets/screenshots/quickbib_aps.png</image>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/81bca85e60cc3bc97dc2ca2397a7d97a73ce4e3f/assets/screenshots/quickbib_aps.png</image>
     </screenshot>
     <screenshot type="default">
       <caption>BibTeX obtained from arXiv link</caption>
-      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/03b52faa835cf83272791847a80e02089a72daf8/assets/screenshots/quickbib_arxiv.png</image>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/81bca85e60cc3bc97dc2ca2397a7d97a73ce4e3f/assets/screenshots/quickbib_arxiv.png</image>
     </screenshot>
     <screenshot type="default">
       <caption>All kinds of examples</caption>
-      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/58299877c8d6aac2252de7f0a0feef2dbe89cb75/assets/screenshots/examples.png</image>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/81bca85e60cc3bc97dc2ca2397a7d97a73ce4e3f/assets/screenshots/examples.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>BibTeX obtained from Nature journal link</caption>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/81bca85e60cc3bc97dc2ca2397a7d97a73ce4e3f/assets/screenshots/quickbib_nature.png</image>
+    </screenshot>
+    <screenshot type="default">
+      <caption>BibTeX obtained from title search</caption>
+      <image>https://raw.githubusercontent.com/archisman-panigrahi/QuickBib/81bca85e60cc3bc97dc2ca2397a7d97a73ce4e3f/assets/screenshots/quickbib_title.png</image>
     </screenshot>
   </screenshots>
   <branding>
