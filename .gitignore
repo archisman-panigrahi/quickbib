@@ -159,3 +159,4 @@ flatpak/.flatpak-builder
 flatpak/repo
 *.snap
 *.exe
+debian/files

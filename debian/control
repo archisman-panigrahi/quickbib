@@ -2,8 +2,11 @@ Source: quickbib
 Section: utils
 Priority: optional
 Maintainer: Archisman Panigrahi <apandada1@gmail.com>
-Build-Depends: debhelper-compat (= 12), dh-python, python3-all, meson, ninja-build, pkg-config
-Standards-Version: 4.6.0
+Homepage: https://github.com/archisman-panigrahi/QuickBib
+Vcs-Git: https://github.com/archisman-panigrahi/QuickBib.git
+Vcs-Browser: https://github.com/archisman-panigrahi/QuickBib
+Build-Depends: debhelper-compat (= 12), dh-python, python3-all, meson, ninja-build, pkgconf
+Standards-Version: 4.7.2
 Rules-Requires-Root: no
 
 Package: quickbib

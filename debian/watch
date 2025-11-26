@@ -1,0 +1,3 @@
+version=4
+opts=filenamemangle=s/.*/QuickBib-$1.tar.gz/
+https://github.com/archisman-panigrahi/QuickBib/releases .*/tag/v?(\d+(?:\.\d+)*)
