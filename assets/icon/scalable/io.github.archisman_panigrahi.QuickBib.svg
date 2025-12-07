@@ -1,4 +1,4 @@
-<svg width="500" height="500" version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+<svg width="500" height="500" version="1.2" baseProfile="tiny-ps" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
  <title>QuickBib Icon</title>
  <linearGradient id="a" x1="643.46" x2="182.89" y1="810.87" y2="350.3" gradientTransform="matrix(.96 0 0 .96 16.527 23.223)" gradientUnits="userSpaceOnUse">
   <stop stop-color="#65a38f" offset="0"/>
