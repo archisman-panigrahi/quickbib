@@ -47,7 +47,7 @@ package-repositories:
     url: https://ppa.launchpadcontent.net/apandada1/quickbib/ubuntu
     suites: [noble]
     components: [main]
-    architectures: [arm64, amd64, armhf, ppc64el, riscv64, s390x]
+    architectures: [arm64, amd64]
     key-id: 4BDCA6FAF8BE2B807944B40C9E776C57AA2476B8
 
 parts:
