@@ -98,9 +98,13 @@ class AboutDialog(QDialog):
 
         authors_text = QTextBrowser()
         authors_html = f"""
-        <h3>Authors & Contributors</h3>
+        <h3>Authors</h3>
         <ul>
           <li><a href="https://github.com/archisman-panigrahi/">Archisman Panigrahi</a></li>
+        </ul>
+        <h3> Significant Contributors</h3>
+        <ul>
+          <li><a href="https://github.com/Kyuyrii/">Kyuyrii</a></li>
         </ul>
         <p> This project was inspired by <a href="https://github.com/bibcure/doi2bib">doi2bib</a>, whose development unfortunately stopped.</p>
         <p> This project would not have been possible without the help from GitHub copilot.</p>
