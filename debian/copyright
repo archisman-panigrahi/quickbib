@@ -1,9 +1,0 @@
-Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: quickbib
-Source: https://github.com/archisman-panigrahi/quickbib
-
-Files: *
-Copyright: 2025 Archisman Panigrahi
-License: GPL-3
- The full text of the GPL is distributed in
- /usr/share/common-licenses/GPL-3 on Debian systems.
