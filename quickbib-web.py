@@ -1,5 +1,7 @@
 import streamlit as st
 from doi2bib3 import fetch_bibtex
+# Import the button component
+from st_copy_to_clipboard import st_copy_to_clipboard
 
 # --- Your Custom Function ---
 def get_bibtex_for_doi(doi: str):
@@ -10,30 +12,65 @@ def get_bibtex_for_doi(doi: str):
         return False, "", str(e)
 
 # --- Streamlit UI Layout ---
-st.set_page_config(page_title="DOI to BibTeX", page_icon="📚")
+icon_url = "https://github.com/archisman-panigrahi/QuickBib/blob/main/assets/icon/64x64/io.github.archisman_panigrahi.QuickBib.png?raw=true"
+st.set_page_config(page_title="DOI to BibTeX", page_icon=icon_url)
 
-st.title("DOI to BibTeX Converter 📚")
-st.markdown("Enter a DOI below to generate the BibTeX entry.")
+# Trim top padding for a tighter layout
+st.markdown(
+    """
+    <style>
+    .block-container {
+        padding-top: 1rem;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-# Input Field
-# We use st.session_state to keep the input stable if the user interacts with other elements
-doi_input = st.text_input("Enter DOI", placeholder="10.1038/s41586-020-2649-2")
+title_icon_col, title_text_col = st.columns([0.12, 0.82])
+with title_icon_col:
+    st.markdown(
+        f"<div style='padding-top:30px; text-align:left;'>"
+        f"<img src='{icon_url}' width='64'/></div>",
+        unsafe_allow_html=True,
+    )
+with title_text_col:
+    st.title("QuickBib: DOI/arXiv to BibTeX")
+
+
+# Input Field with enlarged label
+st.markdown(
+    "<div style='font-size:1.2rem; font-weight:400;'>"
+    "Enter DOI or arXiv number or a link to the paper to generate the BibTeX entry <a href=\"https://github.com/archisman-panigrahi/QuickBib/blob/main/assets/screenshots/examples.png?raw=true\">(examples)</a>"
+    "</div>",
+    unsafe_allow_html=True,
+)
+doi_input = st.text_input(
+    "DOI",
+    placeholder="https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9",
+    label_visibility="collapsed",  # or "hidden"
+)
 
 # Logic Trigger
 if doi_input:
     with st.spinner("Fetching data..."):
-        # Call your function
         success, bibtex, error_msg = get_bibtex_for_doi(doi_input)
 
         if success:
-            st.success("Citation found!")
-            st.markdown("### Output")
-
-            # st.code displays the text with a built-in "Copy to Clipboard" button
-            # Look for the small copy icon in the top-right of this block when running
+            # Display the BibTeX in a code block for easy reading
             st.code(bibtex, language='latex')
+
+            # Center the copy button in the middle column
+            _, center_col, _ = st.columns([1, 1, 1])
+            with center_col:
+                st_copy_to_clipboard(bibtex, "Copy to Clipboard 📋")
 
         else:
             st.error(f"Failed to resolve DOI.")
             with st.expander("See error details"):
                 st.write(error_msg)
+
+st.markdown(
+    "Prefer a desktop experience? Install the "
+    "[native app](https://archisman-panigrahi.github.io/QuickBib/)."
+)

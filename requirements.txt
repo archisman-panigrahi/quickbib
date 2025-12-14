@@ -1,2 +1,3 @@
 streamlit
 doi2bib3
+st-copy-to-clipboard
