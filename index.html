@@ -37,7 +37,8 @@
             <p class="cta-row">
               <a class="btn primary" href="#install">Install on GNU/Linux</a>
               <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">Download for Windows</a>
-              <a class="btn primary" href="#run-from-source">Run on macOS (from source)</a>
+              <a class="btn primary" href="#macOS">Run on macOS (from source)</a>
+              <a class="btn primary" href="https://quickbib.streamlit.app/" target="_blank" rel="noopener">Open Web App</a>
             </p>
           </div>
           <div class="hero-media">
@@ -111,9 +112,11 @@
   <h3>Windows</h3>
   <p>Prebuilt installers for Windows are available on the Releases page. Download the Windows installer here: <a class="btn primary" href="https://github.com/archisman-panigrahi/QuickBib/releases/latest" target="_blank" rel="noopener">GitHub Releases</a></p>
 
-  <h3>macOS</h3>
+  <h3 id="macOS">macOS</h3>
+
+      <p>It is recommended to use the <a href="https://quickbib.streamlit.app/">Web App</a> on macOS. Continue reading to learn why.</p>
       <p>No prebuilt macOS installers: Distributing an app that users can graphically install and run seems to require paying Apple perpetually (US$99/year) to sign and notarize the app even if the app is free — that’s plain extortion — so we ship the source instead. You can run QuickBib from source or build a macOS app using the packaging scripts on <a href="https://github.com/archisman-panigrahi/QuickBib" target="_blank" rel="noopener">GitHub</a>. Pull requests and heroic ideas for a user friendly installer are very welcome.</p>
-      <p>Alternatively, you can use our CLI backend <code><a href="https://pypi.org/project/doi2bib3/" target="_blank" rel="noopener">doi2bib3</a></code>. Install it with <code>pip3 install --user doi2bib3</code>.</p>
+      <p>Also, you can use our CLI backend <code><a href="https://pypi.org/project/doi2bib3/" target="_blank" rel="noopener">doi2bib3</a></code>. Install it with <code>pip3 install --user doi2bib3</code>.</p>
   <h4 id="run-from-source">Here is how to run from source (on macOS as well as GNU/Linux)</h4>
     <article class="card">
       Run the following commands in a terminal:
