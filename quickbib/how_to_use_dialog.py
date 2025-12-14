@@ -53,7 +53,7 @@ class HowToUseDialog(QDialog):
             ("arXiv ID", "arXiv:2411.08091"),
             ("arXiv ID (short)", "2411.08091"),
             ("Old arXiv ID", "hep-th/9901001"),
-            ("Journal URL", "https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9"),
+            ("Journal URL (works with APS, AMS, AMS, PNAS, Nature...)", "https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9"),
             ("Title (fuzzy search)", "Projected Topological Branes"),
         ]
 
