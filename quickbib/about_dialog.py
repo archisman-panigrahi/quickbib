@@ -19,7 +19,7 @@ class AboutDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("About QuickBib")
-        self.resize(600, 370)
+        self.resize(600, 380)
 
         # Main layout
         vbox = QVBoxLayout()
@@ -88,7 +88,8 @@ class AboutDialog(QDialog):
         as its backend for DOI to BibTeX conversion.</p>
         <p>
           <b>Homepage:</b> <a href="{HOMEPAGE}">{HOMEPAGE}</a><br>
-          <b>Source Code:</b> <a href="{REPO_URL}">{REPO_URL}</a>
+          <b>Source Code:</b> <a href="{REPO_URL}">{REPO_URL}</a><br>
+          <b>Web app:</b> Check it out <a href="https://quickbib.streamlit.app/">here</a>.
         </p>
         <p><b>License:</b> Released under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html#license-text">GNU General Public License Version 3</a>. Full text available on the <i>License</i> tab.</p>
         """
@@ -104,7 +105,7 @@ class AboutDialog(QDialog):
         </ul>
         <h3> Significant Contributors</h3>
         <ul>
-          <li><a href="https://github.com/Kyuyrii/">Kyuyrii</a></li>
+          <li><a href="https://github.com/Kyuyrii/">Kyuyrii</a>: Helped fix the snap package.</li>
         </ul>
         <p> This project was inspired by <a href="https://github.com/bibcure/doi2bib">doi2bib</a>, whose development unfortunately stopped.</p>
         <p> This project would not have been possible without the help from GitHub copilot.</p>
