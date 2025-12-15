@@ -11,7 +11,7 @@ This is a cross platform app that enables you to get the bibtex entry from a DOI
     <img src="https://repology.org/badge/vertical-allrepos/quickbib.svg" alt="Packaging status" align="right">
 </a>
 
-#### Ubuntu/Mint 
+#### Ubuntu/Mint
 You can use our [official PPA](https://code.launchpad.net/~apandada1/+archive/ubuntu/quickbib)
 ```
 sudo add-apt-repository ppa:apandada1/quickbib
