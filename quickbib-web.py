@@ -71,6 +71,6 @@ if doi_input:
                 st.write(error_msg)
 
 st.markdown(
-    "Prefer a desktop experience for converting DOI to BibTeX even more quickly? Install the "
-    "[native app](https://archisman-panigrahi.github.io/QuickBib/)."
+    "For an even faster DOI-to-BibTeX workflow, switch to the "
+    "[native desktop app](https://archisman-panigrahi.github.io/QuickBib/)."
 )
