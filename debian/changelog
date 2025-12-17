@@ -1,3 +1,9 @@
+quickbib (0.5.1) unstable; urgency=medium
+
+  * fix svg icon bug
+
+ -- Archisman Panigrahi <apandada1@gmail.com>  Wed, 17 Dec 2025 04:44:10 -0500
+
 quickbib (0.5.0-1) unstable; urgency=medium
 
   * New upstream release to match doi2bib3 release
