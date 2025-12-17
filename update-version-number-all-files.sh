@@ -53,7 +53,7 @@ fi
 if [ -f debian/changelog ]; then
     PACKAGE=$(head -1 debian/changelog | awk '{print $1}')
     {
-        echo "$PACKAGE ($NEW_VERSION) unstable; urgency=medium"
+        echo "$PACKAGE ($NEW_VERSION-1) unstable; urgency=medium"
         echo ""
         echo "  * $CHANGELOG"
         echo ""
