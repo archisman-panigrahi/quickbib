@@ -47,7 +47,7 @@ st.markdown(
 )
 doi_input = st.text_input(
     "DOI",
-    placeholder="https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9",
+    placeholder="e.g. https://journals.aps.org/prl/abstract/10.1103/v6r7-4ph9",
     label_visibility="collapsed",  # or "hidden"
 )
 
